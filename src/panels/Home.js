@@ -3,13 +3,13 @@ import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import PropTypes from 'prop-types';
 import { Wrapp } from './Wrapp';
 
-export const Home = ({ id, fetchedUser }) => {
-  const { photo_200, city, first_name, last_name } = { ...fetchedUser };
+export const Home = ({ id, user }) => {
+  const { photo_200, city, first_name, last_name } = { ...user };
   const routeNavigator = useRouteNavigator();
 
   return (
     <Wrapp id={id}>
-      {fetchedUser && (
+      {user && (
         <Group header={<Header size="s">User Data Fetched with VK Bridge</Header>}>
           <Cell before={photo_200 && <Avatar src={photo_200} />} subtitle={city?.title}>
             {`${first_name} ${last_name}`}
@@ -30,7 +30,7 @@ export const Home = ({ id, fetchedUser }) => {
 
 Home.propTypes = {
   id: PropTypes.string.isRequired,
-  fetchedUser: PropTypes.shape({
+  user: PropTypes.shape({
     photo_200: PropTypes.string,
     first_name: PropTypes.string,
     last_name: PropTypes.string,

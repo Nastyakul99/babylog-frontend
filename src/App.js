@@ -12,29 +12,17 @@ import { PanelHeaderButton } from '@vkontakte/vkui';
 import { Icon28CameraOutline } from '@vkontakte/icons';
 import { Icon28AddOutline } from '@vkontakte/icons';
 import { createPerson } from './api/persons';
+import { usePerson } from './hooks/usePerson';
 
 export const App = () => {
   const { panel: activePanel = DEFAULT_VIEW_PANELS.HOME } = useActiveVkuiLocation();
-  const [user, setUser] = useState();
-  const [popout, setPopout] = useState(<ScreenSpinner />);
-
-  useEffect(() => {
-    async function fetchData() {
-      const userTmp = await bridge.send('VKWebAppGetUserInfo');
-      setUser(userTmp);
-      setPopout(null);
-      console.log(userTmp)
-      createPerson(userTmp.id);
-    }
-    fetchData();
-
-  }, []);
+  const [person, , popout] = usePerson();
 
   return (
     <SplitLayout>
       <SplitCol>
         <View activePanel={activePanel}>
-          <Home id="home" fetchedUser={user} />
+          <Home id="home" user={person?.user} />
           <Persik id="persik" />
           <FamilySettings id="family"></FamilySettings>
         </View>
