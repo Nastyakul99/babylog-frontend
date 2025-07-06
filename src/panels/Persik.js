@@ -2,7 +2,7 @@ import { Panel, PanelHeader, PanelHeaderBack, Placeholder } from '@vkontakte/vku
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import PropTypes from 'prop-types';
 import PersikImage from '../assets/persik.png';
-import { Wrapp } from './Wrapp';
+import { Wrapp } from './wrapp/Wrapp';
 
 export const Persik = ({ id }) => {
   const routeNavigator = useRouteNavigator();

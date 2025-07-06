@@ -6,7 +6,7 @@ import { ScreenSpinner } from "@vkontakte/vkui";
 import { createPerson } from "../api/persons";
 
 export const usePerson = () => {
-    const [person, setPerson] = useState();
+    const [person, setPerson] = useState({});
     const [popout, setPopout] = useState(<ScreenSpinner />);
 
     useEffect(() => {

@@ -1,33 +1,32 @@
-import { useState, useEffect } from 'react';
-import bridge from '@vkontakte/vk-bridge';
-import { View, SplitLayout, SplitCol, ScreenSpinner } from '@vkontakte/vkui';
+import { useEffect } from 'react';
+import { View, SplitLayout, SplitCol } from '@vkontakte/vkui';
 import { useActiveVkuiLocation } from '@vkontakte/vk-mini-apps-router';
-
 import { Persik, Home } from './panels';
 import { DEFAULT_VIEW_PANELS } from './routes';
-import { PanelHeader, Panel } from '@vkontakte/vkui'
-import { SettingsButton } from './pages/Settings/SettingsButton';
-import { FamilySettings } from './pages/Settings/FamilySettings';
-import { PanelHeaderButton } from '@vkontakte/vkui';
-import { Icon28CameraOutline } from '@vkontakte/icons';
-import { Icon28AddOutline } from '@vkontakte/icons';
-import { createPerson } from './api/persons';
 import { usePerson } from './hooks/usePerson';
+import { Activities } from './panels/Activities';
+import { Settings } from './panels/settings/Settings';
+import "./App.css";
 
 export const App = () => {
   const { panel: activePanel = DEFAULT_VIEW_PANELS.HOME } = useActiveVkuiLocation();
   const [person, , popout] = usePerson();
 
+  useEffect(() => {
+  }, [])
+
+ console.log(person)
   return (
     <SplitLayout>
       <SplitCol>
         <View activePanel={activePanel}>
           <Home id="home" user={person?.user} />
+          <Activities id="activities"></Activities>
           <Persik id="persik" />
-          <FamilySettings id="family"></FamilySettings>
+          <Settings id="settings" person={person}></Settings>
         </View>
       </SplitCol>
-      {popout}
+      {/* {popout} */}
     </SplitLayout>
   );
 };

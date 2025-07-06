@@ -1,6 +1,6 @@
 import { HTTP_METHODS } from "./httpMethod";
 import { SignedRequest } from "./types/requests/signedRequest"
-import {AddToFamilyRequest} from "./types/requests/addToFamilyRequest"
+import { AddToFamilyRequest } from "./types/requests/addToFamilyRequest"
 
 export const ENDPOINTS = {
     persons: {
@@ -19,8 +19,29 @@ export const ENDPOINTS = {
     families: {
         add: {
             uri: "families",
-            method: HTTP_METHODS.POST,
+            metgod: HTTP_METHODS.POST,
             requestClass: AddToFamilyRequest
+        },
+        get: {
+            uri: "families",
+            metgod: HTTP_METHODS.GET,
+            requestClass: SignedRequest
+        }
+    },
+
+    activityGroups: {
+        get: {
+            uri: "activityGroups",
+            method: HTTP_METHODS.GET,
+            requestClass: null
+        }
+    },
+
+    activities: {
+        get: {
+            uri: "activities/group",
+            method: HTTP_METHODS.GET,
+            requestClass: null
         }
     }
 }

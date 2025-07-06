@@ -5,12 +5,11 @@ export class AddToFamilyRequest extends SignedRequest {
     newMemberId = "";
 
     constructor(userId, newMemberId) {
-        this.newMemberId = newMemberId;
         super(userId);
+        this.newMemberId = newMemberId;
     }
 
     _genPayload() {
-        return ("userId=" + this.userId
-            + ";newMemberId=" + this.newMemberId);
+        return ("newMemberId=" + this.newMemberId);
     }
 }

@@ -1,14 +1,21 @@
-import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar } from '@vkontakte/vkui';
+import { Header, Button, Group, Cell, Div, Avatar } from '@vkontakte/vkui';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import PropTypes from 'prop-types';
-import { Wrapp } from './Wrapp';
+import { Wrapp } from './wrapp/Wrapp';
+import { PanelActivityGroups } from './wrapp/PanelGroups/PanelActivityGroups';
 
 export const Home = ({ id, user }) => {
   const { photo_200, city, first_name, last_name } = { ...user };
   const routeNavigator = useRouteNavigator();
 
+  const onGroupClick = (group) => {
+    console.log('group', group);
+    routeNavigator.push('1')
+  }
+
   return (
     <Wrapp id={id}>
+      <PanelActivityGroups onClick={onGroupClick}></PanelActivityGroups>
       {user && (
         <Group header={<Header size="s">User Data Fetched with VK Bridge</Header>}>
           <Cell before={photo_200 && <Avatar src={photo_200} />} subtitle={city?.title}>
