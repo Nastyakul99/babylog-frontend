@@ -11,8 +11,7 @@ export const useActivityGroups = () => {
     useEffect(() => {
         async function fetchData() {
             const fetchData = await getActivityGroups();
-            const newData = fetchData?._embedded?.activityGroups
-                .map(g => new ActivityGroup({ ...g }));
+            const newData = fetchData?.map(g => new ActivityGroup({ ...g }));
             setActivityGroups(newData ? newData : []);
             setPopout(null);
         }
