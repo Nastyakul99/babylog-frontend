@@ -6,12 +6,12 @@ export const ENDPOINTS = {
     persons: {
         get: {
             uri: "persons",
-            metgod: HTTP_METHODS.GET,
+            method: HTTP_METHODS.GET,
             requestClass: SignedRequest
         },
         create: {
             uri: "persons",
-            metgod: HTTP_METHODS.POST,
+            method: HTTP_METHODS.POST,
             requestClass: SignedRequest
         },
     },
@@ -19,12 +19,12 @@ export const ENDPOINTS = {
     families: {
         add: {
             uri: "families",
-            metgod: HTTP_METHODS.POST,
+            method: HTTP_METHODS.POST,
             requestClass: AddToFamilyRequest
         },
         get: {
             uri: "families",
-            metgod: HTTP_METHODS.GET,
+            method: HTTP_METHODS.GET,
             requestClass: SignedRequest
         }
     },

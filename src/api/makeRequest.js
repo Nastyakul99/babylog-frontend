@@ -15,7 +15,7 @@ export const makeRequest = async ({
 }
 
 export const makeSimpleRequest = async (endpoint, ...params) => {
-  const method = endpoint.metgod;
+  const method = endpoint.method;
   const requestOptions = {
     method: method,
     headers: {
@@ -27,7 +27,7 @@ export const makeSimpleRequest = async (endpoint, ...params) => {
     const request = new endpoint.requestClass(...params);
 
     const bodyOrSearch = await request.createRequest(method);
-    if (endpoint.metgod === HTTP_METHODS.GET) {
+    if (endpoint.method === HTTP_METHODS.GET) {
       return makeRequest({ endpoint: endpoint.uri, requestOptions, params: bodyOrSearch });
     } else {
       requestOptions.body = bodyOrSearch;
