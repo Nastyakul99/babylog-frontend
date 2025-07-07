@@ -1,4 +1,10 @@
 
+export const GENDER = {
+    MALE: "MALE",
+    FEMALE: "FEMALE",
+    UNDEFINED: "UNDEFINED"
+}
+
 export class Person {
     id = 0;
     vkId = 0;
@@ -36,5 +42,19 @@ export class Activity {
         this.name = name;
         this.printName = printName;
         this.img = img;
+    }
+}
+
+export class Baby {
+    id = 0;
+    name = "";
+    birthDate = "";
+    gender = GENDER.UNDEFINED;
+
+    constructor({ id, name, birthDate, gender }) {
+        this.id = id;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.gender = gender;
     }
 }

@@ -1,6 +1,7 @@
 import { HTTP_METHODS } from "./httpMethod";
 import { SignedRequest } from "./types/requests/signedRequest"
-import { SubIdRequest } from "./types/requests/subIdRequest"
+import { BabySignedRequest } from "./types/requests/babySignedRequest";
+import { SubIdRequest } from "./types/requests/subIdRequest";
 
 export const ENDPOINTS = {
     persons: {
@@ -42,6 +43,34 @@ export const ENDPOINTS = {
             uri: "activities/group",
             method: HTTP_METHODS.GET,
             requestClass: null
+        }
+    },
+
+    babies: {
+        create: {
+            uri: "babies",
+            method: HTTP_METHODS.POST,
+            requestClass: BabySignedRequest
+        },
+        update: {
+            uri: "babies",
+            method: HTTP_METHODS.PUT,
+            requestClass: BabySignedRequest
+        },
+        get: {
+            uri: "babies",
+            method: HTTP_METHODS.GET,
+            requestClass: SubIdRequest
+        },
+        getByPersonVkId: {
+            uri: "babies/person",
+            method: HTTP_METHODS.GET,
+            requestClass: SignedRequest
+        },
+        delete: {
+            uri: "babies",
+            method: HTTP_METHODS.DELETE,
+            requestClass: SubIdRequest
         }
     }
 }
