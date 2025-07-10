@@ -8,3 +8,7 @@ export const addToFamily = async (userId, newMemberId) => {
 export const getFamily = async (userId) => {
     return makeSimpleRequest(ENDPOINTS.families.get, userId);
 }
+
+export const deleteFromFamily = async (userId, deletedVkId) => {
+    return makeSimpleRequest(ENDPOINTS.families.delete, userId, deletedVkId);
+}

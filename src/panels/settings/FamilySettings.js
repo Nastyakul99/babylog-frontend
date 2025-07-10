@@ -15,7 +15,7 @@ const CellPersonAvatar = ({ user = {}, onClick = () => { } }) => {
 }
 
 export const FamilySettings = ({ person = {} }) => {
-    const [family, addToFamily] = useFamily({ userId: person.vkId });
+    const [family, addToFamily, deleteFromFamily] = useFamily({ userId: person.vkId });
     const [selected, update] = useSelected();
 
     const onClickAdd = async () => {
@@ -25,12 +25,19 @@ export const FamilySettings = ({ person = {} }) => {
         });
     }
 
+    const onClickDelete = async () => {
+        deleteFromFamily(selected);
+    }
+
     return <SettingsGroup
-        onClickAdd={onClickAdd}>
-        {family.map((p) => {
-            return <CellPersonAvatar onClick={(i) => { update(i) }}
-                user={p.user}>
-            </CellPersonAvatar>
-        })}
+        onClickAdd={onClickAdd}
+        onClickDelete={onClickDelete}>
+        {family
+            .filter((p) => p.vkId !== person.vkId)
+            .map((p) => {
+                return <CellPersonAvatar onClick={(i) => { update(i) }}
+                    user={p.user}>
+                </CellPersonAvatar>
+            })}
     </SettingsGroup>
 }

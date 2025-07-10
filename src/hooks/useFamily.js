@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import bridge from '@vkontakte/vk-bridge';
 import { Person } from "../api/types/types";
 import { ScreenSpinner } from "@vkontakte/vkui";
-import { getFamily, addToFamily } from "../api/families";
+import { getFamily, addToFamily, deleteFromFamily } from "../api/families";
 
 export const useFamily = ({ userId }) => {
     const [family, setFamily] = useState([]);
@@ -37,5 +37,12 @@ export const useFamily = ({ userId }) => {
         refresh(fetchFamily);
     }
 
-    return [family, add, popout];
+    const deleteFrom = async (deletedIds) => {
+        for (const id of deletedIds) {
+            const fetchFamily = await deleteFromFamily(userId, id);
+            refresh(fetchFamily);
+        }
+    }
+
+    return [family, add, deleteFrom, popout];
 }

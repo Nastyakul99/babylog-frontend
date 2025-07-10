@@ -6,9 +6,9 @@ import { DEFAULT_VIEW_PANELS } from '../../routes';
 export const SettingsButton = () => {
     const routeNavigator = useRouteNavigator();
 
-    return <PanelHeaderButton>
+    return <PanelHeaderButton title="Настройки">
         <Icon24Settings
-            onClick={() => routeNavigator.push(DEFAULT_VIEW_PANELS.SETTINGS)}
+            onClick={() => routeNavigator.push("/" + DEFAULT_VIEW_PANELS.SETTINGS)}
             width={20}
             height={20} />
     </PanelHeaderButton>

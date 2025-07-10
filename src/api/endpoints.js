@@ -27,11 +27,21 @@ export const ENDPOINTS = {
             uri: "families",
             method: HTTP_METHODS.GET,
             requestClass: SignedRequest
+        },
+        delete: {
+            uri: "families",
+            method: HTTP_METHODS.DELETE,
+            requestClass: SubIdRequest
         }
     },
 
     activityGroups: {
         get: {
+            uri: "activityGroups",
+            method: HTTP_METHODS.GET,
+            requestClass: null
+        },
+        getById: {
             uri: "activityGroups",
             method: HTTP_METHODS.GET,
             requestClass: null

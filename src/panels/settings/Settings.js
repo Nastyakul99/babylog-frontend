@@ -2,6 +2,7 @@ import { Panel, Group } from "@vkontakte/vkui"
 import { FamilySettings } from "./FamilySettings"
 import { AccordionVK } from "../../components/AccordionVK";
 import { Header } from "@vkontakte/vkui";
+import { Wrapp } from "../wrapp/Wrapp";
 
 export const Settings = ({ id, person }) => {
     if (person == null) return <></>;
@@ -22,9 +23,9 @@ export const Settings = ({ id, person }) => {
             detail: <div></div>,
         },
     ];
-    return <Panel id={id}>
+    return <Wrapp id={id}>
         <Group header={<Header size="s">настройки</Header>}>
             <AccordionVK data={data}></AccordionVK>
         </Group>
-    </Panel>
+    </Wrapp>
 }

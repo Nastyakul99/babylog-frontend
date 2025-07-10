@@ -9,8 +9,7 @@ export const Home = ({ id, user }) => {
   const routeNavigator = useRouteNavigator();
 
   const onGroupClick = (group) => {
-    console.log('group', group);
-    routeNavigator.push('1')
+    routeNavigator.push(group?.id?.toString())
   }
 
   return (
