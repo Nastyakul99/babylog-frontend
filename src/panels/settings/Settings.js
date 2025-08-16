@@ -1,5 +1,6 @@
-import { Panel, Group } from "@vkontakte/vkui"
+import { Group } from "@vkontakte/vkui"
 import { FamilySettings } from "./FamilySettings"
+import { BabySettings } from "./BabySettings";
 import { AccordionVK } from "../../components/AccordionVK";
 import { Header } from "@vkontakte/vkui";
 import { Wrapp } from "../wrapp/Wrapp";
@@ -15,7 +16,7 @@ export const Settings = ({ id, person }) => {
         {
             id: 2,
             title: 'Малыши',
-            detail: <div></div>,
+            detail: <BabySettings person={person}></BabySettings>,
         },
         {
             id: 3,

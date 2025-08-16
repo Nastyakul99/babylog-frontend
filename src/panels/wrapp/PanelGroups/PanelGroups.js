@@ -13,6 +13,7 @@ export const PanelGroups = ({ onLoad = () => { }, header, onClick = () => { }, .
         <CardScroll size={false} padding={true}>
             {groups && groups.map((g) => {
                 return <Card
+                    key={g.id}
                     className='PanelGroups__card'
                     onMouseEnter={() => setSelected(g)}
                     onMouseLeave={() => setSelected(null)}

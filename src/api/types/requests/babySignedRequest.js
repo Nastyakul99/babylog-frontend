@@ -1,4 +1,5 @@
 import { SignedRequest } from "./signedRequest";
+import { keysToURI } from "./keysToURI";
 
 export class BabySignedRequest extends SignedRequest {
 
@@ -10,6 +11,6 @@ export class BabySignedRequest extends SignedRequest {
     }
 
     _genPayload() {
-        return ("baby=" + this.baby);
+        return keysToURI(this.baby);
     }
 }

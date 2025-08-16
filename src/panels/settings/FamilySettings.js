@@ -35,7 +35,7 @@ export const FamilySettings = ({ person = {} }) => {
         {family
             .filter((p) => p.vkId !== person.vkId)
             .map((p) => {
-                return <CellPersonAvatar onClick={(i) => { update(i) }}
+                return <CellPersonAvatar key={p.id} onClick={(i) => { update(i) }}
                     user={p.user}>
                 </CellPersonAvatar>
             })}
