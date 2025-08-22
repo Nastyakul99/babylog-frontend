@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Baby } from "../api/types/types";
 import { ScreenSpinner } from "@vkontakte/vkui";
-import { getBabyByPersonVkId, createBaby, deleteBaby } from "../api/babies";
+import { getBabyByPersonVkId, createBaby, deleteBaby, getBabyById, updateBaby } from "../api/babies";
 
 export const useBabies = ({ userId }) => {
     const [babies, setBabies] = useState([]);
@@ -24,9 +24,8 @@ export const useBabies = ({ userId }) => {
     }, [userId]);
 
     const add = async (newBaby) => {
-        const fetchBabies = await createBaby(userId, newBaby);
-        fetchData()
-        //refresh(fetchBabies);
+        await createBaby(userId, newBaby);
+        return fetchData()
     }
 
     const deleteBabies = async (deletedIds) => {
@@ -36,5 +35,15 @@ export const useBabies = ({ userId }) => {
         }
     }
 
-    return [babies, add, deleteBabies, popout];
+    const getBaby = async (id) => {
+        const b = await getBabyById(userId, id);
+        return new Baby(b);
+    }
+
+    const update = async (baby) => {
+        const b = await updateBaby(userId, baby);
+        return new Baby(b);
+    }
+
+    return [babies, add, deleteBabies, getBaby, update, popout];
 }

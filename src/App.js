@@ -6,6 +6,7 @@ import { DEFAULT_VIEW_PANELS } from './routes';
 import { usePerson } from './hooks/usePerson';
 import { Activities } from './panels/Activities';
 import { Settings } from './panels/settings/Settings';
+import AppModalRoot from './components/modals/AppModalRoot';
 import "./App.css";
 
 export const App = () => {
@@ -19,6 +20,7 @@ export const App = () => {
   return (
     <SplitLayout>
       <SplitCol>
+        <AppModalRoot person={person}/>
         <View activePanel={activePanel}>
           <Home id="home" user={person?.user} />
           <Activities id="activities"></Activities>

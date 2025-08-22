@@ -3,6 +3,7 @@ import {
   createPanel,
   createRoot,
   createView,
+  createModal,
   RoutesConfig,
 } from '@vkontakte/vk-mini-apps-router';
 
@@ -17,13 +18,20 @@ export const DEFAULT_VIEW_PANELS = {
   ACTIVITIES: 'activities'
 };
 
+export const MODALS = {
+  EDIT_BABY_MODAL: "edit_baby_modal"
+}
+
 export const routes = RoutesConfig.create([
   createRoot(DEFAULT_ROOT, [
     createView(DEFAULT_VIEW, [
       createPanel(DEFAULT_VIEW_PANELS.HOME, '/', []),
       createPanel(DEFAULT_VIEW_PANELS.ACTIVITIES, '/:groupId', []),
       createPanel(DEFAULT_VIEW_PANELS.PERSIK, `/${DEFAULT_VIEW_PANELS.PERSIK}`, []),
-      createPanel(DEFAULT_VIEW_PANELS.SETTINGS, `/${DEFAULT_VIEW_PANELS.SETTINGS}`, []),
+      createPanel(DEFAULT_VIEW_PANELS.SETTINGS, `/${DEFAULT_VIEW_PANELS.SETTINGS}`, [
+        createModal(MODALS.EDIT_BABY_MODAL,
+          `/${DEFAULT_VIEW_PANELS.SETTINGS}/baby/modal/:id`, ['id']),
+      ]),
     ]),
   ]),
 ]);
