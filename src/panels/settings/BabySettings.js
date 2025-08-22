@@ -1,22 +1,9 @@
-import { CellAvatar } from '../../components/CellAvatar';
 import { useSelected } from '../../hooks/useSelected';
 import { SettingsGroup } from './SettingsGroup';
-import { useBabies } from '../../hooks/useBabies';
 import { Baby } from '../../api/types/types';
 import { GENDER } from '../../api/types/types';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
-
-const CellBabyAvatar = ({ baby = {}, onClick = () => { }, onClickAvatar = () => { } }) => {
-    const { id, name, gender } = { ...baby };
-    const photo = gender === GENDER.FEMALE ? "https://img.icons8.com/plasticine/100/sleeping-baby-girl-.png" :
-        "https://img.icons8.com/plasticine/100/child-with-pacifier.png";
-    return <CellAvatar id={id}
-        photo={photo}
-        name={name}
-        onClick={onClick}
-        onClickAvatar={onClickAvatar}>
-    </CellAvatar>
-}
+import { CellBabyAvatar } from '../../components/CellBabyAvatar';
 
 export const BabySettings = ({ babies = [], deleteBabies = async() => { } }) => {
     //const [babies, add, deleteBabies, getBaby, , popout] = useBabies({ userId: person.vkId });

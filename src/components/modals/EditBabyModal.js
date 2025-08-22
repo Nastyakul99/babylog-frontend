@@ -1,23 +1,22 @@
-import { Div, ModalPageHeader } from "@vkontakte/vkui"
+import { Avatar, ModalPageHeader, Group } from "@vkontakte/vkui"
 import { useMetaParams } from "@vkontakte/vk-mini-apps-router";
 import { useParams } from "@vkontakte/vk-mini-apps-router";
 import { useState, useEffect } from "react";
 import { Baby } from "../../api/types/types";
-import { useBabies } from "../../hooks/useBabies";
 import { GENDER } from "../../api/types/types";
 import { FormItem, Input, Select, DateInput, Button } from "@vkontakte/vkui";
 import { parseToIntOrNull } from "../../utils/parseToIntOrNull";
+import { getBabyPhoto } from "../CellBabyAvatar";
 
 export const EditBabyModal = ({ onClose = () => { },
-    add = async() => { },
-    get = async() => { },
-    update = async() => { } }) => {
+    add = async () => { },
+    get = async () => { },
+    update = async () => { } }) => {
     const metaParams = useMetaParams();
     const params = useParams();
     const { paramId } = metaParams || params || {};
     const id = parseToIntOrNull(paramId);
     const [baby, setBaby] = useState();
-    //const [, add, , get, update,] = useBabies({ userId: person.vkId });
 
     const getBaby = async () => {
         if (id == null || id == "null") {
@@ -65,46 +64,49 @@ export const EditBabyModal = ({ onClose = () => { },
     }
 
     return <>
-        <ModalPageHeader>Малыш</ModalPageHeader>
-        <Div>
-            {baby && <form onSubmit={(e) => { e.preventDefault(); save() }}>
-                <FormItem top="Имя" htmlFor="name">
-                    <Input id="name" type="text" value={baby.name} onChange={handleNameChange} />
-                </FormItem>
-                <FormItem top="Пол" htmlFor="gender-select-id">
-                    <Select
-                        id="gender-select-id"
-                        placeholder="Выберите пол"
-                        options={[
-                            {
-                                value: GENDER.UNDEFINED,
-                                label: '-',
-                            },
-                            {
-                                value: GENDER.MALE,
-                                label: 'Мужской',
-                            },
-                            {
-                                value: GENDER.FEMALE,
-                                label: 'Женский',
-                            },
-                        ]}
-                        value={baby.gender}
-                        onChange={handleGenderChange}
-                    />
-                </FormItem>
-                <FormItem top="День рождения" htmlFor="date">
-                    <DateInput id="date"
-                        aria-label="День рождения"
-                        value={new Date(baby.birthDate)}
-                        onChange={handleBirthDateChange} />
-                </FormItem>
-                <FormItem>
-                    <Button type="submit" size="l" stretched>
-                        Сохранить
-                    </Button>
-                </FormItem>
-            </form>}
-        </Div>
+        <ModalPageHeader
+            after={baby ? <Avatar src={getBabyPhoto(baby)}></Avatar> : <></>}>Малыш</ModalPageHeader>
+        <Group>
+            {baby && <>
+                <form onSubmit={(e) => { e.preventDefault(); save() }}>
+                    <FormItem top="Имя" htmlFor="name">
+                        <Input id="name" type="text" value={baby.name} onChange={handleNameChange} />
+                    </FormItem>
+                    <FormItem top="Пол" htmlFor="gender-select-id">
+                        <Select
+                            id="gender-select-id"
+                            placeholder="Выберите пол"
+                            options={[
+                                {
+                                    value: GENDER.UNDEFINED,
+                                    label: '-',
+                                },
+                                {
+                                    value: GENDER.MALE,
+                                    label: 'Мужской',
+                                },
+                                {
+                                    value: GENDER.FEMALE,
+                                    label: 'Женский',
+                                },
+                            ]}
+                            value={baby.gender}
+                            onChange={handleGenderChange}
+                        />
+                    </FormItem>
+                    <FormItem top="День рождения" htmlFor="date">
+                        <DateInput id="date"
+                            aria-label="День рождения"
+                            value={new Date(baby.birthDate)}
+                            onChange={handleBirthDateChange} />
+                    </FormItem>
+                    <FormItem>
+                        <Button type="submit" size="l" stretched>
+                            Сохранить
+                        </Button>
+                    </FormItem>
+                </form>
+            </>}
+        </Group>
     </>
 }
