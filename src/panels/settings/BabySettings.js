@@ -18,8 +18,8 @@ const CellBabyAvatar = ({ baby = {}, onClick = () => { }, onClickAvatar = () => 
     </CellAvatar>
 }
 
-export const BabySettings = ({ person = {} }) => {
-    const [babies, add, deleteBabies, getBaby, , popout] = useBabies({ userId: person.vkId });
+export const BabySettings = ({ babies = [], deleteBabies = async() => { } }) => {
+    //const [babies, add, deleteBabies, getBaby, , popout] = useBabies({ userId: person.vkId });
     const [selected, update] = useSelected();
     const routeNavigator = useRouteNavigator();
 
@@ -30,7 +30,6 @@ export const BabySettings = ({ person = {} }) => {
     });
 
     const onClickAdd = async () => {
-        //add(newBaby);
         showModal(null);
     }
 
@@ -52,7 +51,7 @@ export const BabySettings = ({ person = {} }) => {
                 .map((b) => {
                     return <CellBabyAvatar key={b.id}
                         onClick={(i) => { update(i) }}
-                        onClickAvatar={() => {showModal(b.id)}}
+                        onClickAvatar={() => { showModal(b.id) }}
                         baby={b}>
                     </CellBabyAvatar>
                 })}

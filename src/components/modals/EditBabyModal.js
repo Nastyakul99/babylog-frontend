@@ -8,13 +8,16 @@ import { GENDER } from "../../api/types/types";
 import { FormItem, Input, Select, DateInput, Button } from "@vkontakte/vkui";
 import { parseToIntOrNull } from "../../utils/parseToIntOrNull";
 
-export const EditBabyModal = ({ person = {}, onClose = () => { } }) => {
+export const EditBabyModal = ({ onClose = () => { },
+    add = async() => { },
+    get = async() => { },
+    update = async() => { } }) => {
     const metaParams = useMetaParams();
     const params = useParams();
     const { paramId } = metaParams || params || {};
     const id = parseToIntOrNull(paramId);
     const [baby, setBaby] = useState();
-    const [, add, , get, update,] = useBabies({ userId: person.vkId });
+    //const [, add, , get, update,] = useBabies({ userId: person.vkId });
 
     const getBaby = async () => {
         if (id == null || id == "null") {

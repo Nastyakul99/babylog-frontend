@@ -7,25 +7,28 @@ import { usePerson } from './hooks/usePerson';
 import { Activities } from './panels/Activities';
 import { Settings } from './panels/settings/Settings';
 import AppModalRoot from './components/modals/AppModalRoot';
+import { useBabies } from './hooks/useBabies';
 import "./App.css";
 
 export const App = () => {
   const { panel: activePanel = DEFAULT_VIEW_PANELS.HOME } = useActiveVkuiLocation();
   const [person, , popout] = usePerson();
+  const [babies, add, deleteBabies, getBaby, update] = useBabies({ userId: person.vkId });
 
   useEffect(() => {
   }, [])
 
- console.log(person)
+  console.log(person)
   return (
     <SplitLayout>
       <SplitCol>
-        <AppModalRoot person={person}/>
+        <AppModalRoot person={person} addBaby={add} getBaby={getBaby} updateBaby={update} />
         <View activePanel={activePanel}>
           <Home id="home" user={person?.user} />
           <Activities id="activities"></Activities>
           <Persik id="persik" />
-          <Settings id="settings" person={person}></Settings>
+          <Settings id="settings" person={person}
+            babies={babies} deleteBabies={deleteBabies}></Settings>
         </View>
       </SplitCol>
       {/* {popout} */}
