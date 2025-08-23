@@ -1,16 +1,12 @@
 
-export const GENDER = {
+export const GENDER = Object.freeze({
     MALE: "MALE",
     FEMALE: "FEMALE",
     UNDEFINED: "UNDEFINED"
-}
+})
 
 export class Person {
-    id = 0;
-    vkId = 0;
-    user = {};
-
-    constructor({ id, vkId, user }) {
+    constructor({ id = 0, vkId = 0, user = {} } = {}) {
         this.id = id;
         this.vkId = vkId;
         this.user = user;
@@ -18,12 +14,7 @@ export class Person {
 }
 
 export class ActivityGroup {
-    id = 0;
-    name = "";
-    printName = "";
-    img = "";
-
-    constructor({ id, name, printName, img }) {
+    constructor({ id = 0, name = "", printName = "", img = "" } = {}) {
         this.id = id;
         this.name = name;
         this.printName = printName;
@@ -32,12 +23,7 @@ export class ActivityGroup {
 }
 
 export class Activity {
-    id = 0;
-    name = "";
-    printName = "";
-    img = "";
-
-    constructor({ id, name, printName, img }) {
+    constructor({ id = 0, name = "", printName = "", img = "" } = {}) {
         this.id = id;
         this.name = name;
         this.printName = printName;
@@ -46,15 +32,43 @@ export class Activity {
 }
 
 export class Baby {
-    id = 0;
-    name = "";
-    birthDate = "";
-    gender = GENDER.UNDEFINED;
-
-    constructor({ id, name, birthDate, gender }) {
+    constructor({ id = 0, name = "", birthDate = "", gender = GENDER.UNDEFINED } = {}) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
         this.gender = gender;
     }
 }
+
+export const TYPE_ACTIVITY_RECORD = Object.freeze({
+    BASE_RECORD: 'BASE_RECORD',
+    TIME_RANGE: 'TIME_RANGE',
+    TEXT_NOTE: 'TEXT_NOTE'
+});
+
+export class ActivityRecord {
+    constructor({ id = 0, babyId = 0, activityId = 0, startTime = "" } = {}) {
+        this.id = id;
+        this.babyId = babyId;
+        this.activityId = activityId;
+        this.startTime = startTime;
+        this.type = TYPE_ACTIVITY_RECORD.BASE_RECORD;
+    }
+}
+
+export class TextNoteRecord extends ActivityRecord {
+    constructor({ id = 0, babyId = 0, activityId = 0, startTime = "", comment = "" } = {}) {
+        super({ id, babyId, activityId, startTime });
+        this.comment = comment;
+        this.type = TYPE_ACTIVITY_RECORD.TEXT_NOTE;
+    }
+}
+
+export class TimeRangeRecord extends ActivityRecord {
+    constructor({ id = 0, babyId = 0, activityId = 0, startTime = "", endTime = "" } = {}) {
+        super({ id, babyId, activityId, startTime });
+        this.endTime = endTime;
+        this.type = TYPE_ACTIVITY_RECORD.TIME_RANGE;
+    }
+}
+

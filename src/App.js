@@ -18,7 +18,6 @@ export const App = () => {
   useEffect(() => {
   }, [])
 
-  console.log(person)
   return (
     <SplitLayout>
       <SplitCol>
