@@ -2,7 +2,7 @@ import { makeSimpleRequest } from "./makeRequest";
 import { ENDPOINTS } from "./endpoints";
 
 export const getBabyById = async (userId, babyId) => {
-    return makeSimpleRequest(ENDPOINTS.babies.getById, userId, babyId);
+    return makeSimpleRequest(ENDPOINTS.babies.get, userId, babyId);
 }
 
 export const createBaby = async (userId, baby) => {

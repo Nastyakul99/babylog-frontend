@@ -14,14 +14,14 @@ export const EditBabyModal = ({ onClose = () => { },
     update = async () => { } }) => {
     const metaParams = useMetaParams();
     const params = useParams();
-    const { paramId } = metaParams || params || {};
-    const id = parseToIntOrNull(paramId);
+    const paramId = metaParams || params || {};
+    const id = parseToIntOrNull(paramId.id);
     const [baby, setBaby] = useState();
 
     const getBaby = async () => {
         if (id == null || id == "null") {
             return new Baby({
-                name: "MAX",
+                name: "",
                 id: 0,
                 birthDate: "2025-07-10",
                 gender: GENDER.MALE
@@ -32,7 +32,7 @@ export const EditBabyModal = ({ onClose = () => { },
 
     useEffect(() => {
         async function fetchData() {
-            setBaby(await getBaby());
+            setBaby(await getBaby(id));
         };
         fetchData();
     }, [id]);

@@ -33,8 +33,8 @@ export const BabySettings = ({ babies = [], deleteBabies = async() => { } }) => 
         onClickAdd={onClickAdd}
         onClickDelete={onClickDelete}>
         {
-            //babies
-            [newBaby]
+            babies
+            //[newBaby]
                 .map((b) => {
                     return <CellBabyAvatar key={b.id}
                         onClick={(i) => { update(i) }}
