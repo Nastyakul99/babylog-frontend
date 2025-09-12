@@ -11,6 +11,6 @@ export class RecordsByBabyAndActivityRequest extends SignedRequest {
     }
 
     _genPayload() {
-        return (`babyId=${this.babyId};activityId=${this.activityId}`);
+        return (`activityId=${this.activityId};babyId=${this.babyId}`);
     }
 }

@@ -1,0 +1,18 @@
+import { formatHHmmss } from "../../utils/formatDateHHmmss"
+import { getTimeDiffUOM } from "../../utils/timeDiff"
+import PropTypes from "prop-types";
+import { Activity } from "../../api/types/types";
+
+export const RecordItem = ({ record, activity }) => {
+    const start = new Date(record.startTime);
+
+    const timeDiff = record.endTime ? `${getTimeDiffUOM(start, new Date(record.endTime))}, ` : "";
+
+    return activity && <>{`${formatHHmmss(start)}, ${timeDiff}${activity.name}`}</>
+        || <></>
+}
+
+RecordItem.propTypes = {
+  record: PropTypes.object.isRequired,
+  activity: PropTypes.instanceOf(Activity),
+};

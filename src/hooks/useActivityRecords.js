@@ -1,30 +1,32 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { ActivityRecord } from "../api/types/types";
+import { ActivityRecord, activityRecordFactory } from "../api/types/types";
 import { ScreenSpinner } from "@vkontakte/vkui";
 import {createRecord, getByBabyId,
-    getByBabyIdAndActivityId, updateRecord, deleteRecord
+    getByBabyIdAndGroupId, updateRecord, deleteRecord
 } from "../api/activityRecords";
 
-export const useActivityRecords = ({ userId, babyId }) => {
+export const useActivityRecords = ({ userId, babyId, groupId }) => {
     const [records, setRecords] = useState([]);
     const [popout, setPopout] = useState(<ScreenSpinner />);
 
+
     async function refresh(fetchRecords) {
         //TODO исправить
-        const newRecords = fetchRecords?.map(b => new ActivityRecord(b));
+        const newRecords = fetchRecords?.map(b => activityRecordFactory(b));
         setRecords(newRecords);
         setPopout(null);
     }
 
     async function fetchData() {
-        const fetchRecords = await getByBabyId(userId, babyId);
+        const get = groupId ? getByBabyIdAndGroupId : getByBabyId;
+        const fetchRecords = await get(userId, babyId, groupId);
         refresh(fetchRecords);
     }
 
     useEffect(() => {
         fetchData();
-    }, [userId, babyId]);
+    }, [userId, babyId, groupId]);
 
     const add = async (newRecord) => {
         await createRecord(userId, newRecord);
@@ -44,10 +46,10 @@ export const useActivityRecords = ({ userId, babyId }) => {
         return new ActivityRecord(r);
     }
 
-    async function get(activityId) {
-        const fetchRecords = await getByBabyIdAndActivityId(userId, babyId, activityId);
+    async function get(groupId) {
+        const fetchRecords = await getByBabyIdAndGroupId(userId, babyId, groupId);
         refresh(fetchRecords);
     }
 
-    return [records, add, deleteRecords, update, get, popout];
+    return [records, add, deleteRecords, update, get, fetchData, popout];
 }

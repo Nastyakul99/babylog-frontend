@@ -51,8 +51,18 @@ export const ENDPOINTS = {
     },
 
     activities: {
-        get: {
+        getByGroup: {
             uri: "activities/group",
+            method: HTTP_METHODS.GET,
+            requestClass: null
+        },
+        get: {
+            uri: "activities",
+            method: HTTP_METHODS.GET,
+            requestClass: null
+        },
+        getById: {
+            uri: "activities",
             method: HTTP_METHODS.GET,
             requestClass: null
         }
@@ -92,12 +102,12 @@ export const ENDPOINTS = {
             requestClass: ActivityRecordSignedRequest
         },
         getByBabyId: {
-            uri: "activityRecords/baby",
+            uri: "activityRecords/baby/",
             method: HTTP_METHODS.GET,
             requestClass: SubIdRequest
         },
-        getByBabyIdAndActivityId: {
-            uri: "activityRecords/baby/activity",
+        getByBabyIdAndGroupId: {
+            uri: "activityRecords/baby/group",
             method: HTTP_METHODS.GET,
             requestClass: RecordsByBabyAndActivityRequest
         },

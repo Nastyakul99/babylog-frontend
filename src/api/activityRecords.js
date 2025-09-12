@@ -9,8 +9,8 @@ export const getByBabyId = async (userId, babyId) => {
     return makeSimpleRequest(ENDPOINTS.activityRecords.getByBabyId, userId, babyId);
 }
 
-export const getByBabyIdAndActivityId = async (userId, babyId, activityId) => {
-    return makeSimpleRequest(ENDPOINTS.activityRecords.getByBabyIdAndActivityId, userId, babyId, activityId);
+export const getByBabyIdAndGroupId = async (userId, babyId, groupId) => {
+    return makeSimpleRequest(ENDPOINTS.activityRecords.getByBabyIdAndGroupId, userId, babyId, groupId);
 }
 
 export const updateRecord = async (userId, record) => {

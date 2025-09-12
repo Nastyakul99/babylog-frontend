@@ -13,7 +13,6 @@ export const DEFAULT_VIEW = 'default_view';
 
 export const DEFAULT_VIEW_PANELS = {
   HOME: 'home',
-  PERSIK: 'persik',
   SETTINGS: 'settings',
   ACTIVITIES: 'activities'
 };
@@ -27,7 +26,6 @@ export const routes = RoutesConfig.create([
     createView(DEFAULT_VIEW, [
       createPanel(DEFAULT_VIEW_PANELS.HOME, '/', []),
       createPanel(DEFAULT_VIEW_PANELS.ACTIVITIES, '/:groupId', []),
-      createPanel(DEFAULT_VIEW_PANELS.PERSIK, `/${DEFAULT_VIEW_PANELS.PERSIK}`, []),
       createPanel(DEFAULT_VIEW_PANELS.SETTINGS, `/${DEFAULT_VIEW_PANELS.SETTINGS}`, [
         createModal(MODALS.EDIT_BABY_MODAL,
           `/${DEFAULT_VIEW_PANELS.SETTINGS}/baby/modal/:id`, ['id']),

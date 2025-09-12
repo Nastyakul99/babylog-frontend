@@ -1,12 +1,26 @@
 import { PanelGroups } from "./PanelGroups"
-import { useActivities } from "../../../hooks/useActivities"
 import { useActivityGroup } from "../../../hooks/useActivityGroup"
+import { RecordEditor } from "../../../components/RecordEditor/RecordEditor"
+import { useState } from "react"
+import { useParams } from "@vkontakte/vk-mini-apps-router"
+import PropTypes from "prop-types"
+import { Activity } from "../../../api/types/types"
 
-export const PanelActivities = ({ groupId }) => {
-    const [group] = useActivityGroup(groupId);
+export const PanelActivities = ({ babyId, createRecord = () => { }, activities = [] }) => {
+    const { groupId } = useParams();
+    const [group] = useActivityGroup(groupId);//TODO
+    const [selectedActivity, setSelectedActivity] = useState(null);
 
-    return <PanelGroups header={group?.name}
-        onLoad={useActivities}
-        groupId={groupId}>
-    </PanelGroups>
+    return (selectedActivity && <RecordEditor
+        activity={selectedActivity} setSelectedActivity={setSelectedActivity} babyId={babyId} create={createRecord}>
+    </RecordEditor>) || <PanelGroups header={group?.name}
+        groups={activities}
+        onClick={setSelectedActivity}>
+        </PanelGroups>;
 }
+
+PanelActivities.propTypes = {
+    babyId: PropTypes.number,
+    createRecord: PropTypes.func,
+    activities: PropTypes.arrayOf(PropTypes.instanceOf(Activity)),
+};

@@ -4,14 +4,16 @@ import { CardScroll } from '@vkontakte/vkui';
 import { Header } from '@vkontakte/vkui';
 import { useState } from 'react';
 import './PanelGroups.css';
+import PropTypes from 'prop-types';
+import { ActivityGroup } from '../../../api/types/types';
 
-export const PanelGroups = ({ onLoad = () => { }, header, onClick = () => { }, ...params }) => {
-    const [groups] = onLoad(params);
+export const PanelGroups = ({ header, onClick = () => { }, groups = [] }) => {
+
     const [selected, setSelected] = useState(null);
 
     return <Group header={<Header size="s">{header}</Header>}>
         <CardScroll size={false} padding={true}>
-            {groups && groups.map((g) => {
+            {groups.map((g) => {
                 return <Card
                     key={g.id}
                     className='PanelGroups__card'
@@ -29,3 +31,9 @@ export const PanelGroups = ({ onLoad = () => { }, header, onClick = () => { }, .
         </CardScroll>
     </Group>
 }
+
+PanelGroups.propTypes = {
+    header: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
+    groups: PropTypes.arrayOf(PropTypes.instanceOf(ActivityGroup)),
+};

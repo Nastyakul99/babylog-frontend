@@ -1,7 +1,8 @@
 import { ENDPOINTS } from "./endpoints";
 import { HTTP_METHODS } from "./httpMethod";
 
-const API_URL = 'https://kulav.ru';
+//const API_URL = 'https://kulav.ru';
+const API_URL = 'https://localhost';
 
 export const makeRequest = async ({
   params,

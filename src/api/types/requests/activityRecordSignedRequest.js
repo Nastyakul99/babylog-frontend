@@ -3,14 +3,16 @@ import { keysToURI } from "./keysToURI";
 
 export class ActivityRecordSignedRequest extends SignedRequest {
 
-    activityRecord = null;
+    activityRecord;
 
-    constructor(userId, activityRecord) {
+    constructor(userId, activityRecord = null) {
         super(userId);
         this.activityRecord = activityRecord;
     }
 
     _genPayload() {
-        return keysToURI(this.activityRecord);
+        let tmp = {...this.activityRecord};
+        delete  tmp.type;
+        return keysToURI(tmp);
     }
 }

@@ -23,11 +23,13 @@ export class ActivityGroup {
 }
 
 export class Activity {
-    constructor({ id = 0, name = "", printName = "", img = "" } = {}) {
+    constructor({ id = 0, name = "", printName = "",
+        img = "", type = TYPE_ACTIVITY_RECORD.BASE_RECORD } = {}) {
         this.id = id;
         this.name = name;
         this.printName = printName;
         this.img = img;
+        this.type = type;
     }
 }
 
@@ -70,5 +72,30 @@ export class TimeRangeRecord extends ActivityRecord {
         this.endTime = endTime;
         this.type = TYPE_ACTIVITY_RECORD.TIME_RANGE;
     }
+}
+//TODO
+export const activityRecordFactory = ({ id, type, babyId, activityId, startTime, comment, endTime }) => {
+    let record = null;
+    switch (type) {
+        case TYPE_ACTIVITY_RECORD.TIME_RANGE:
+            record = new TimeRangeRecord({
+                id: id, babyId: babyId,
+                activityId: activityId, startTime: startTime, endTime: endTime
+            });
+            break;
+        case TYPE_ACTIVITY_RECORD.TEXT_NOTE:
+            record = new TextNoteRecord({
+                id: id, babyId: babyId,
+                activityId: activityId, startTime: startTime, comment: comment
+            });
+            break;
+        default:
+            record = new ActivityRecord({
+                id: id, babyId: babyId,
+                activityId: activityId, startTime: startTime
+            });
+            break;
+    }
+    return record;
 }
 

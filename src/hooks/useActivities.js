@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { ScreenSpinner } from "@vkontakte/vkui";
 import { Activity } from "../api/types/types";
-import { getActivitiesByGroupId } from "../api/Activities";
+import { getActivitiesByGroupId, getActivities } from "../api/Activities";
 
 export const useActivities = ({ groupId }) => {
     const [activities, setActivities] = useState([]);
@@ -10,13 +10,16 @@ export const useActivities = ({ groupId }) => {
 
     useEffect(() => {
         async function fetchData() {
-            const newData = (await getActivitiesByGroupId(groupId))
+            const get = groupId ? getActivitiesByGroupId : getActivities;
+            const newData = (await get(groupId))
                 .map(a => new Activity({ ...a }));
             setActivities(newData ? newData : []);
             setPopout(null);
         }
         fetchData();
-    }, []);
+    }, [groupId]);
 
-    return [activities, setActivities, popout];
+    const getById = (id) => { return activities.find((a) => a.id === id) }
+
+    return [activities, setActivities, popout, getById];
 }

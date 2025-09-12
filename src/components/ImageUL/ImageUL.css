@@ -1,0 +1,22 @@
+.ImageUL {
+    --icon-size: 30px;
+    --imageUL-background: url('https://img.icons8.com/plasticine/100/teddy-bear.png');
+    list-style: none;
+}
+
+.ImageUL__li {
+    position: relative;
+    line-height: var(--icon-size);
+}
+
+.ImageUL__li:before {
+    content: '';
+    background-image: var(--imageUL-background);
+    position: absolute;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    background-size: var(--icon-size) var(--icon-size);
+    left: -30px;
+    top: -2px;
+
+}
