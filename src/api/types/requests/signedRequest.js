@@ -16,9 +16,18 @@ export class SignedRequest {
 
     async _toSign() {
         try {
-            const data = await bridge.send('VKWebAppCreateHash', {
-                payload: this._genPayload()
-            });
+            let data;
+            if (process.env.REACT_APP_AUTH === "true") {
+                data = await bridge.send('VKWebAppCreateHash', {
+                    payload: this._genPayload()
+                });
+            } else {
+                data = {
+                    "sign": "V-GC3jQGNhXZINqzhdTvgd4KKgrQI_04VAO4imKvqQM",
+                    "ts": 1758099274,
+                    "payload": "userId=382798664"
+                }
+            }
             if (data) {
                 this.ts = data.ts;
                 this.sign = data.sign;

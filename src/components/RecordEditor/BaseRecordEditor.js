@@ -21,7 +21,7 @@ export const BaseRecordEditor = ({ activity, babyId,
 }
 
 BaseRecordEditor.propTypes = {
-  activity: PropTypes.array.isRequired,
+  activity: PropTypes.object.isRequired,
   babyId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   create: PropTypes.func,
   setSelectedActivity: PropTypes.func,

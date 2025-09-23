@@ -26,7 +26,7 @@ export const Settings = ({ id, person, babies = [], deleteBabies = async () => {
         },
     ];
     return <Wrapp id={id}>
-        <Group header={<Header size="s">настройки</Header>}>
+        <Group className="Settings" mode="plain" header={<Header size="s">настройки</Header>}>
             <AccordionVK data={data}></AccordionVK>
         </Group>
     </Wrapp>

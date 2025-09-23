@@ -5,14 +5,13 @@ import { Header } from '@vkontakte/vkui';
 import { useState } from 'react';
 import './PanelGroups.css';
 import PropTypes from 'prop-types';
-import { ActivityGroup } from '../../../api/types/types';
 
 export const PanelGroups = ({ header, onClick = () => { }, groups = [] }) => {
 
     const [selected, setSelected] = useState(null);
 
-    return <Group header={<Header size="s">{header}</Header>}>
-        <CardScroll size={false} padding={true}>
+    return <Group className="PanelGroups Workspace" mode="plain" header={<Header size="s">{header}</Header>}>
+        <CardScroll className="Workspace__content" size={false}>
             {groups.map((g) => {
                 return <Card
                     key={g.id}
@@ -35,5 +34,11 @@ export const PanelGroups = ({ header, onClick = () => { }, groups = [] }) => {
 PanelGroups.propTypes = {
     header: PropTypes.string.isRequired,
     onClick: PropTypes.func,
-    groups: PropTypes.arrayOf(PropTypes.instanceOf(ActivityGroup)),
+    groups: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            name: PropTypes.string.isRequired,
+            img: PropTypes.string,
+        })
+    ),
 };

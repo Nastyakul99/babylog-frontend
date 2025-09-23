@@ -1,4 +1,4 @@
-import { defineConfig, transformWithEsbuild } from 'vite';
+import { defineConfig, transformWithEsbuild, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import legacy from '@vitejs/plugin-legacy';
 
@@ -35,28 +35,36 @@ function threatJsFilesAsJsx() {
  * This is done so that your code runs equally well on the site and in the odr.
  * The details are here: https://dev.vk.com/mini-apps/development/on-demand-resources.
  */
-export default defineConfig({
-  base: './',
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
 
-  plugins: [
-    react(),
-    threatJsFilesAsJsx(),
-    handleModuleDirectivesPlugin(),
-    legacy({
-      targets: ['defaults', 'not IE 11'],
-    }),
-  ],
+  return {
+    base: './',
 
-  optimizeDeps: {
-    force: true,
-    esbuildOptions: {
-      loader: {
-        '.js': 'jsx',
+    plugins: [
+      react(),
+      threatJsFilesAsJsx(),
+      handleModuleDirectivesPlugin(),
+      legacy({
+        targets: ['defaults', 'not IE 11'],
+      }),
+    ],
+
+    optimizeDeps: {
+      force: true,
+      esbuildOptions: {
+        loader: {
+          '.js': 'jsx',
+        },
       },
     },
-  },
 
-  build: {
-    outDir: 'build',
-  },
+    build: {
+      outDir: 'build',
+    },
+
+    define: {
+      'process.env': env,
+    },
+  };
 });

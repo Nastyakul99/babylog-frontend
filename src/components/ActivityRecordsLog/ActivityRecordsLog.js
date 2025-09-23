@@ -32,12 +32,14 @@ export const ActivityRecordsLog = ({ getActivityById = () => { }, records = [] }
             </>)
     }));
 
-    return (<Group>
-        <ImageUL list={list}></ImageUL>
-    </Group>);
+    return (
+        <Group>
+            <ImageUL list={list}></ImageUL>
+        </Group>
+    );
 }
 
 ActivityRecordsLog.propTypes = {
-  getActivityById: PropTypes.func,
-  records: PropTypes.array,
+    getActivityById: PropTypes.func,
+    records: PropTypes.array,
 };

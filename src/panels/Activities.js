@@ -2,18 +2,18 @@ import PropTypes from 'prop-types';
 import { Wrapp } from './wrapp/Wrapp';
 import { PanelActivities } from './wrapp/PanelGroups/PanelActivities';
 
-export const Activities = ({ id, baby, createRecord = () => { }, activities = [], ...props }) => {
+export const Activities = ({ id, selectedBaby, createRecord = () => { }, activities = [], ...props }) => {
   return (
-    <Wrapp id={id} {...props}>{
-      baby && <PanelActivities activities={activities} babyId={baby.id} createRecord={createRecord}>
-      </PanelActivities> || "Добавьте малыша"}
+    <Wrapp id={id} selectedBaby={selectedBaby} {...props}>{
+      selectedBaby && <PanelActivities activities={activities} babyId={selectedBaby.id} createRecord={createRecord}>
+      </PanelActivities>}
     </Wrapp>
   );
 };
 
 Activities.propTypes = {
   id: PropTypes.string.isRequired,
-  baby: PropTypes.object,
+  selectedBaby: PropTypes.object,
   createRecord: PropTypes.func,
   activities: PropTypes.array,
 };

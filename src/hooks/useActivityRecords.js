@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { ActivityRecord, activityRecordFactory } from "../api/types/types";
 import { ScreenSpinner } from "@vkontakte/vkui";
-import {createRecord, getByBabyId,
+import {
+    createRecord, getByBabyId,
     getByBabyIdAndGroupId, updateRecord, deleteRecord
 } from "../api/activityRecords";
 
@@ -20,7 +21,7 @@ export const useActivityRecords = ({ userId, babyId, groupId }) => {
 
     async function fetchData() {
         const get = groupId ? getByBabyIdAndGroupId : getByBabyId;
-        const fetchRecords = await get(userId, babyId, groupId);
+        const fetchRecords = (userId == null || babyId == null) ? [] : await get(userId, babyId, groupId);//TODO
         refresh(fetchRecords);
     }
 

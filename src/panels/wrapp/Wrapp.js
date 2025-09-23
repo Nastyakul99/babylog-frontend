@@ -5,6 +5,9 @@ import { BackButton } from './BackButton';
 import { DEFAULT_VIEW_PANELS } from '../../routes';
 import { BabyDropdown } from '../../components/BabyDropdown';
 import { ActivityRecordsLog } from '../../components/ActivityRecordsLog/ActivityRecordsLog';
+import "./Wrapp.css"
+import { InfoAlert } from './InfoAlert';
+import { FixedLayout } from '@vkontakte/vkui';
 
 export const Wrapp = ({ id, children, babies = [],
   selectedBaby = null, onChangeBaby = () => { },
@@ -22,14 +25,23 @@ export const Wrapp = ({ id, children, babies = [],
     selectedBabyId={selectedBaby?.id || null} onChangeBaby={onChangeBaby}>
   </BabyDropdown> : <BackButton></BackButton>;
 
+  let info = (babies.length == 0 && "Добавьте малыша в настройках") || (selectedBaby == null && "Выберите малыша") || "";
+
   return (
     <Panel id={id}>
-      <PanelHeader
-        before={before}
-        after={!ifSettings() && <SettingsButton></SettingsButton>}>
-      </PanelHeader>
-      {children}
-      {records.length > 0 && <ActivityRecordsLog getActivityById={getActivityById} records={records}></ActivityRecordsLog>}
+      <div className="Wrapp">
+        <PanelHeader
+          className='Wrapp__PanelHeader'
+          fixed
+          before={before}
+          after={!ifSettings() && <SettingsButton></SettingsButton>}>
+        </PanelHeader>
+        <FixedLayout vertical="top">{children}</FixedLayout>
+        <div className="Wrapp__content">
+          {records.length > 0 && <ActivityRecordsLog getActivityById={getActivityById} records={records}></ActivityRecordsLog>}
+          <InfoAlert info={info}></InfoAlert>
+        </div>
+      </div>
     </Panel>
   );
 };

@@ -5,7 +5,7 @@ import { PanelHeaderButton } from '@vkontakte/vkui';
 export const BackButton = () => {
     const routeNavigator = useRouteNavigator();
 
-    return <PanelHeaderButton title='Назад'>
+    return <PanelHeaderButton className="AppButton" title='Назад'>
         <Icon24ArrowLeftOutline
             onClick={() => routeNavigator.back()}
             width={20}

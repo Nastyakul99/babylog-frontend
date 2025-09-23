@@ -5,7 +5,7 @@ import { getActivityGroup } from "../api/activityGroups";
 import { ActivityGroup } from "../api/types/types";
 
 export const useActivityGroup = (groupId) => {
-    const [group, setGroup] = useState({});
+    const [group, setGroup] = useState();
     const [popout, setPopout] = useState(<ScreenSpinner />);
 
     useEffect(() => {

@@ -15,7 +15,7 @@ export const useBabies = ({ userId }) => {
     }
 
     async function fetchData() {
-        const fetchBabies = await getBabyByPersonVkId(userId);
+        const fetchBabies = userId ? await getBabyByPersonVkId(userId) : [];//TODO
         refresh(fetchBabies);
     }
 

@@ -11,7 +11,8 @@ export const usePerson = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const fetchUser = await bridge.send('VKWebAppGetUserInfo');
+            const fetchUser = (process.env.REACT_APP_AUTH === "true") ? await bridge.send('VKWebAppGetUserInfo')
+                : { id: 382798664 };
             const fetchPerson = await createPerson(fetchUser.id);
             const newPerson = new Person({ ...fetchPerson, user: fetchUser });
             setPerson(newPerson);

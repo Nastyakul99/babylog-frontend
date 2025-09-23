@@ -25,7 +25,7 @@ export const TextNoteEditor = ({ activity, babyId,
 }
 
 TextNoteEditor.propTypes = {
-  activity: PropTypes.array.isRequired,
+  activity: PropTypes.object.isRequired,
   babyId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   create: PropTypes.func,
   setSelectedActivity: PropTypes.func,

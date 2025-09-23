@@ -24,7 +24,7 @@ export const useFamily = ({ userId }) => {
     }
 
     async function fetchData() {
-        const fetchFamily = await getFamily(userId);
+        const fetchFamily = userId ? await getFamily(userId) : [];
         refresh(fetchFamily);
     }
 

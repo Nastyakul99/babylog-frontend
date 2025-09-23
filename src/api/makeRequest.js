@@ -1,8 +1,6 @@
-import { ENDPOINTS } from "./endpoints";
 import { HTTP_METHODS } from "./httpMethod";
 
-//const API_URL = 'https://kulav.ru';
-const API_URL = 'https://localhost';
+const API_URL = process.env.REACT_APP_HOST;
 
 export const makeRequest = async ({
   params,

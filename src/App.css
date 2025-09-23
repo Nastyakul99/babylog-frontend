@@ -1,6 +1,33 @@
-/* .Group__headerBefore {
-    color: var(--vkui--color_text_secondary);
-    font-weight: var(--vkui--font_weight_base1);
-    line-height: 16px;
-    font-size: 13px;
-} */
+:root {
+    --group-header-height: 20vh;
+    --group-header-spacing: var(--group-header-height);
+    --text-color: #3C0906;
+    --color-bg-light: #E4E4E6;
+    --color-sand: #E4C08A;
+    --color-brown: #84352D;
+}
+
+.AppButton {
+    color: var(--color-bg-light);
+}
+
+.Wrapp .AppButton--light,
+.Wrapp .AppButton--light span {
+    background-color: var(--color-bg-light);
+    color: var(--text-color);
+}
+
+.Wrapp .AppButton--light:hover,
+.Wrapp .AppButton--light:hover span {
+    background-color: var(--text-color);
+    color: var(--color-bg-light);
+}
+
+.Workspace {
+    background-color: var(--color-sand);
+    height: var(--group-header-height);
+}
+
+.Workspace__content {
+    padding: 0 16px;
+}

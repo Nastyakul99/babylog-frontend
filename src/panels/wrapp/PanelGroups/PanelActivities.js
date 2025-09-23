@@ -10,13 +10,13 @@ export const PanelActivities = ({ babyId, createRecord = () => { }, activities =
     const { groupId } = useParams();
     const [group] = useActivityGroup(groupId);//TODO
     const [selectedActivity, setSelectedActivity] = useState(null);
-
+    
     return (selectedActivity && <RecordEditor
         activity={selectedActivity} setSelectedActivity={setSelectedActivity} babyId={babyId} create={createRecord}>
-    </RecordEditor>) || <PanelGroups header={group?.name}
+    </RecordEditor>) || (group && <PanelGroups header={group?.name}
         groups={activities}
         onClick={setSelectedActivity}>
-        </PanelGroups>;
+        </PanelGroups>) || <></>;
 }
 
 PanelActivities.propTypes = {
