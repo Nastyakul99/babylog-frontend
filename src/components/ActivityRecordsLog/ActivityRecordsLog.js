@@ -3,6 +3,7 @@ import { RecordItem } from "./RecordItem";
 import { Group } from "@vkontakte/vkui";
 import { ImageUL } from "../ImageUL/ImageUL";
 import PropTypes from 'prop-types';
+import { RecordItemFactory } from "./RecordItemFactory";
 
 export const ActivityRecordsLog = ({ getActivityById = () => { }, records = [] }) => {
     const uniqueDates = Array.from(
@@ -17,7 +18,7 @@ export const ActivityRecordsLog = ({ getActivityById = () => { }, records = [] }
                 const activity = getActivityById(r.activityId);
                 return {
                     id: r.id,
-                    data: <RecordItem activity={activity} record={r} />,
+                    data: <RecordItemFactory type={r.type} activity={activity} record={r} />,
                     img: activity?.img
                 };
             });
@@ -33,7 +34,7 @@ export const ActivityRecordsLog = ({ getActivityById = () => { }, records = [] }
     }));
 
     return (
-        <Group>
+        <Group mode="plain">
             <ImageUL list={list}></ImageUL>
         </Group>
     );

@@ -1,0 +1,16 @@
+.TextTimeDiff {
+    font-size: calc(0.6em + 0.7vw);
+    font-weight: bold;
+}
+
+.IntRecordEditor__container {
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+
+.IntRecordEditor__text {
+    flex-grow: 2;
+    white-space: nowrap;
+    font-size: calc(0.6em + 0.7vw)
+}

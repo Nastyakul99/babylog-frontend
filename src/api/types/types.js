@@ -45,7 +45,9 @@ export class Baby {
 export const TYPE_ACTIVITY_RECORD = Object.freeze({
     BASE_RECORD: 'BASE_RECORD',
     TIME_RANGE: 'TIME_RANGE',
-    TEXT_NOTE: 'TEXT_NOTE'
+    TEXT_NOTE: 'TEXT_NOTE',
+    COUNT_RECORD: 'COUNT_RECORD',
+    ML_RECORD: 'ML_RECORD'
 });
 
 export class ActivityRecord {
@@ -73,8 +75,18 @@ export class TimeRangeRecord extends ActivityRecord {
         this.type = TYPE_ACTIVITY_RECORD.TIME_RANGE;
     }
 }
+
+export class IntegerAndTimeRange extends ActivityRecord {
+    constructor({ id = 0, babyId = 0, activityId = 0, startTime = "", endTime = "", val = 0, type } = {}) {
+        super({ id, babyId, activityId, startTime });
+        this.endTime = endTime;
+        this.val = val;
+        this.type = type || TYPE_ACTIVITY_RECORD.COUNT_RECORD;//???????
+    }
+}
+
 //TODO
-export const activityRecordFactory = ({ id, type, babyId, activityId, startTime, comment, endTime }) => {
+export const activityRecordFactory = ({ id, type, babyId, activityId, startTime, comment, endTime, val }) => {
     let record = null;
     switch (type) {
         case TYPE_ACTIVITY_RECORD.TIME_RANGE:
@@ -87,6 +99,28 @@ export const activityRecordFactory = ({ id, type, babyId, activityId, startTime,
             record = new TextNoteRecord({
                 id: id, babyId: babyId,
                 activityId: activityId, startTime: startTime, comment: comment
+            });
+            break;
+        case TYPE_ACTIVITY_RECORD.COUNT_RECORD:
+            record = new IntegerAndTimeRange({
+                id: id,
+                babyId: babyId,
+                activityId: activityId,
+                startTime: startTime,
+                endTime: endTime,
+                val: val,
+                type: TYPE_ACTIVITY_RECORD.COUNT_RECORD
+            });
+            break;
+        case TYPE_ACTIVITY_RECORD.ML_RECORD:
+            record = new IntegerAndTimeRange({
+                id: id,
+                babyId: babyId,
+                activityId: activityId,
+                startTime: startTime,
+                endTime: endTime,
+                val: val,
+                type: TYPE_ACTIVITY_RECORD.ML_RECORD
             });
             break;
         default:

@@ -1,10 +1,12 @@
 import { Image, Button, Flex, Group } from "@vkontakte/vkui"
 import PropTypes from "prop-types";
 import { Header } from "@vkontakte/vkui";
+import "./Editor.css"
+import { classNames } from "@vkontakte/vkui";
 
-export const WrapEditor = ({ name, img, children, onClick }) => {
-    return <Group className="Workspace" mode="plain" header={<Header size="s">{name}</Header>}>
-            <Flex className="Workspace__content" justify="space-between">
+export const WrapEditor = ({ name, img, children, onClick, className }) => {
+    return <Group className={classNames("Workspace", className)} mode="plain" header={<Header size="s">{name}</Header>}>
+            <Flex className="Workspace__content" justify="space-between" align="center" noWrap={true}>
                 <Image src={img}></Image>
                 {children}
                 {onClick ? <Button className="AppButton--light"  onClick={onClick}>

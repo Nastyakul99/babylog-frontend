@@ -1,16 +1,19 @@
-import { Text } from "@vkontakte/vkui"
-import { TimeRangeRecord } from "../../api/types/types";
-import { useEffect, useState } from "react";
+import { IntegerAndTimeRange, TYPE_ACTIVITY_RECORD } from "../../api/types/types";
+import { useState, useEffect } from "react";
 import { formatDateHHmmss } from "../../utils/formatDateHHmmss";
 import { WrapEditor } from "./WrapEditor";
 import PropTypes from "prop-types";
 import { TextTimeDiff } from "./TextTimeDiff";
+import { CFormInput } from '@coreui/react';
 
-export const TimeRangeEditor = ({ activity, babyId,
+export const MLRecordEditor = ({ activity, babyId,
     create = async () => { }, setSelectedActivity = () => { } }) => {
     const [record, setRecord] = useState(() => {
         const now = formatDateHHmmss(new Date());
-        return new TimeRangeRecord({ babyId: babyId, activityId: activity.id, startTime: now });
+        return new IntegerAndTimeRange({
+            babyId: babyId, activityId: activity.id,
+            startTime: now, type: TYPE_ACTIVITY_RECORD.ML_RECORD
+        });
     });
 
     useEffect(() => {
@@ -23,16 +26,29 @@ export const TimeRangeEditor = ({ activity, babyId,
         return () => clearInterval(interval);
     }, []);
 
-    return <WrapEditor name={activity.name} img={activity.img}
+
+    return <WrapEditor className="IntRecordEditor" name={activity.name} img={activity.img}
         onClick={async () => {
             await create(record);
             setSelectedActivity(null)
         }}>
         <TextTimeDiff record={record}></TextTimeDiff>
+        <div className="IntRecordEditor__container">
+            <CFormInput
+                type="number"
+                min={0}
+                max={1000}
+                step={10}
+                value={record.val}
+                onChange={(event) => setRecord((prev) => ({ ...prev, val: parseInt(event.target.value, 10) }))}
+            />
+            <span className="IntRecordEditor__text">мл</span>
+        </div>
+
     </WrapEditor>;
 }
 
-TimeRangeEditor.propTypes = {
+MLRecordEditor.propTypes = {
     activity: PropTypes.object.isRequired,
     babyId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     create: PropTypes.func,
