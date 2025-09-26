@@ -5,7 +5,7 @@ export const calcTimeDiff = (start, end) => {
     const diffMin = Math.floor((diffMs - (diffHrs * 60 * 60 * 1000)) / (60 * 1000));
     const diffSec = Math.floor((diffMs - (diffHrs * 60 * 60 * 1000) - (diffMin * 60 * 1000)) / (1000));
 
-    return [diffHrs, diffMin, diffSec];
+    return [diffHrs, diffMin, diffSec];//TODO добавить дни
 }
 
 export const getTimeDiff = (start, end) => {
@@ -22,6 +22,6 @@ export const getTimeDiffUOM = (start, end) => {
     const [diffHrs, diffMin, diffSec] = calcTimeDiff(start, end);
     return ((diffHrs > 0 ? (diffHrs + "ч ") : "")
         + (diffMin > 0 ? (diffMin + "м ") : "")
-        + (diffSec > 0 ? (diffSec + "с") : ""));
+        + (diffSec > 0 ? (diffSec + "с") : "0с"));
 }
 

@@ -1,15 +1,18 @@
 .ImageUL {
     --icon-size: 30px;
     --imageUL-background: url('https://img.icons8.com/plasticine/100/cat-footprint.png');
+    --imageUL-contentBetween: "";
+    --imageUL__li-mrg: calc(1em + 10px);
     list-style: none;
 }
 
 .ImageUL__li {
     position: relative;
     line-height: var(--icon-size);
+    margin-bottom: var(--imageUL__li-mrg);
 }
 
-.ImageUL__li:before {
+.ImageUL__li::after {
     content: '';
     background-image: var(--imageUL-background);
     position: absolute;
@@ -18,5 +21,12 @@
     background-size: var(--icon-size) var(--icon-size);
     left: -30px;
     top: -2px;
+}
 
+.ImageUL__li::before {
+    content: var(--imageUL-contentBetween);
+    position: absolute;
+    height: var(--icon-size);
+    left: -30px;
+    top: 25px;
 }
