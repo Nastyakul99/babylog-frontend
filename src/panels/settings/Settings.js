@@ -5,7 +5,7 @@ import { AccordionVK } from "../../components/AccordionVK";
 import { Header } from "@vkontakte/vkui";
 import { Wrapp } from "../wrapp/Wrapp";
 
-export const Settings = ({ id, person, babies = [], deleteBabies = async () => { } }) => {
+export const Settings = ({ id, person, babies = [], deleteBabies = async () => { }, ...props }) => {
     if (person == null) return <></>;
     const data = [
         {
@@ -25,7 +25,7 @@ export const Settings = ({ id, person, babies = [], deleteBabies = async () => {
             detail: <div></div>,
         },
     ];
-    return <Wrapp id={id}>
+    return <Wrapp id={id} babies={babies} {...props}>
         <Group className="Settings" mode="plain" header={<Header size="s">настройки</Header>}>
             <AccordionVK data={data}></AccordionVK>
         </Group>

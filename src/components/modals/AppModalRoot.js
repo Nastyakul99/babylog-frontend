@@ -6,10 +6,15 @@ import {
 } from '@vkontakte/vk-mini-apps-router';
 import { MODALS } from '../../routes';
 import { EditBabyModal } from './EditBabyModal';
+import { EditRecordModal } from './EditRecordModal/EditRecordModal';
 
-const AppModalRoot = ({ person = {}, addBaby = async () => { },
+const AppModalRoot = ({ person, addBaby = async () => { },
   getBaby = async () => { },
-  updateBaby = async () => { } }) => {
+  updateBaby = async () => { },
+  getRecord = async () => { },
+  updateRecord = async () => { },
+  getActivityById = () => { },
+  refreshRecord = () => { } }) => {
   const { modal: activeModal } = useActiveVkuiLocation();
   const routeNavigator = useRouteNavigator();
   const [searchParams] = useSearchParams();
@@ -19,11 +24,20 @@ const AppModalRoot = ({ person = {}, addBaby = async () => { },
   };
 
   return (
-    <ModalRoot activeModal={activeModal} onClose={onClose}>
+    person.vkId && <ModalRoot activeModal={activeModal} onClose={onClose}>
       <ModalPage id={MODALS.EDIT_BABY_MODAL} onClose={onClose}>
-        <EditBabyModal person={person} onClose={onClose}
+        <EditBabyModal onClose={onClose}
           add={addBaby} get={getBaby} update={updateBaby}>
         </EditBabyModal>
+      </ModalPage>
+      <ModalPage id={MODALS.EDIT_RECORD} onClose={onClose}>
+        <EditRecordModal
+          onClose={onClose}
+          get={getRecord}
+          update={updateRecord}
+          getActivityById={getActivityById}
+          refreshRecord={refreshRecord}>
+        </EditRecordModal>
       </ModalPage>
     </ModalRoot>
   );

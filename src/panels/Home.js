@@ -13,7 +13,7 @@ export const Home = ({
   const routeNavigator = useRouteNavigator();
 
   const onGroupClick = (group) => {
-    if (group && group.id) {
+    if (group && group.id && selectedBaby) {
       routeNavigator.push(group?.id?.toString())
     }
   }

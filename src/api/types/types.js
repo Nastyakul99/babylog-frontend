@@ -81,7 +81,7 @@ export class IntegerAndTimeRange extends ActivityRecord {
         super({ id, babyId, activityId, startTime });
         this.endTime = endTime;
         this.val = val;
-        this.type = type || TYPE_ACTIVITY_RECORD.COUNT_RECORD;//???????
+        this.type = type || TYPE_ACTIVITY_RECORD.COUNT_RECORD;
     }
 }
 

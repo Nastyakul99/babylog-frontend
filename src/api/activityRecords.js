@@ -5,6 +5,10 @@ export const createRecord = async (userId, record) => {
     return makeSimpleRequest(ENDPOINTS.activityRecords.create, userId, record);
 }
 
+export const getById = async (userId, id) => {
+    return makeSimpleRequest(ENDPOINTS.activityRecords.get, userId, id);
+}
+
 export const getByBabyId = async (userId, babyId) => {
     return makeSimpleRequest(ENDPOINTS.activityRecords.getByBabyId, userId, babyId);
 }

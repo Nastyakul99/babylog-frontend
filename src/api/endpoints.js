@@ -96,6 +96,11 @@ export const ENDPOINTS = {
         }
     },
     activityRecords: {
+        get: {
+            uri: "activityRecords",
+            method: HTTP_METHODS.GET,
+            requestClass: SubIdRequest
+        },
         create: {
             uri: "activityRecords",
             method: HTTP_METHODS.POST,

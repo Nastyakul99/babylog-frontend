@@ -14,18 +14,19 @@ export const PanelGroups = ({ header, onClick = () => { }, groups = [] }) => {
         <CardScroll className="Workspace__content" size={false}>
             {groups.map((g) => {
                 return <Card
-                    key={g.id}
-                    className='PanelGroups__card'
-                    onMouseEnter={() => setSelected(g)}
-                    onMouseLeave={() => setSelected(null)}
-                    mode={selected?.name === g.name ? null : "plain"} >
-                    <IconButton
-                        className='PanelGroups__iconButton'
-                        onClick={() => { onClick(g) }}
-                        label={g.name} title={g.name} hasHover={false}>
-                        <Image src={g.img}></Image>
-                    </IconButton>
-                </Card>
+                        key={g.id}
+                        className='PanelGroups__card'
+                        onMouseEnter={() => setSelected(g)}
+                        onMouseLeave={() => setSelected(null)}
+                        mode={selected?.name === g.name ? null : "plain"}
+                        onClick={() => { onClick(g) }}>
+                        <IconButton
+                            className='PanelGroups__iconButton'
+                            label={g.name} title={g.name} hasHover={false}>
+                            <Image src={g.img}></Image>
+                        </IconButton>
+                        <span>{g.name}</span>
+                    </Card>
             })}
         </CardScroll>
     </Group>

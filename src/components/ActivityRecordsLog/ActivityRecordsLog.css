@@ -1,0 +1,12 @@
+.ActivityRecordsLog {
+    padding: 0 1vw;
+}
+
+.RecordItem {
+    display: flex;
+    justify-content: space-between;
+}
+
+.RecordItem__span {
+    display: flex;
+}

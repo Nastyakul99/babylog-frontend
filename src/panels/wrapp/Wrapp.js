@@ -11,7 +11,8 @@ import { FixedLayout } from '@vkontakte/vkui';
 
 export const Wrapp = ({ id, children, babies = [],
   selectedBaby = null, onChangeBaby = () => { },
-  records = [], getActivityById = () => { } }) => {
+  records = [], getActivityById = () => { },
+  deleteRecords = async () => { } }) => {
 
   const ifSettings = () => {
     return id === DEFAULT_VIEW_PANELS.SETTINGS;
@@ -38,7 +39,11 @@ export const Wrapp = ({ id, children, babies = [],
         </PanelHeader>
         <FixedLayout vertical="top">{children}</FixedLayout>
         <div className="Wrapp__content">
-          {records.length > 0 && <ActivityRecordsLog getActivityById={getActivityById} records={records}></ActivityRecordsLog>}
+          {records.length > 0 && <ActivityRecordsLog
+            getActivityById={getActivityById}
+            records={records}
+            deleteRecords={deleteRecords}>
+          </ActivityRecordsLog>}
           <InfoAlert info={info}></InfoAlert>
         </div>
       </div>

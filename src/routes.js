@@ -18,14 +18,21 @@ export const DEFAULT_VIEW_PANELS = {
 };
 
 export const MODALS = {
-  EDIT_BABY_MODAL: "edit_baby_modal"
+  EDIT_BABY_MODAL: "edit_baby_modal",
+  EDIT_RECORD: "edit_record_modal"
 }
 
 export const routes = RoutesConfig.create([
   createRoot(DEFAULT_ROOT, [
     createView(DEFAULT_VIEW, [
-      createPanel(DEFAULT_VIEW_PANELS.HOME, '/', []),
-      createPanel(DEFAULT_VIEW_PANELS.ACTIVITIES, '/:groupId', []),
+      createPanel(DEFAULT_VIEW_PANELS.HOME, '/', [
+        createModal(MODALS.EDIT_RECORD,
+          `/record/:recordId`, ['recordId']),
+      ]),
+      createPanel(DEFAULT_VIEW_PANELS.ACTIVITIES, '/:groupId', [
+        createModal(MODALS.EDIT_RECORD,
+          `/:groupId/record/:recordId`, ['recordId']),
+      ]),
       createPanel(DEFAULT_VIEW_PANELS.SETTINGS, `/${DEFAULT_VIEW_PANELS.SETTINGS}`, [
         createModal(MODALS.EDIT_BABY_MODAL,
           `/${DEFAULT_VIEW_PANELS.SETTINGS}/baby/modal/:id`, ['id']),

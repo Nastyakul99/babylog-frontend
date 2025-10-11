@@ -4,8 +4,10 @@ import { ImageUL } from "../ImageUL/ImageUL";
 import PropTypes from 'prop-types';
 import { RecordItemFactory } from "./RecordItemFactory";
 import { getTimeDiffUOM } from "../../utils/timeDiff";
+import "./ActivityRecordsLog.css"
 
-export const ActivityRecordsLog = ({ getActivityById = () => { }, records = [] }) => {
+export const ActivityRecordsLog = ({ getActivityById = () => { }, records = [],
+    deleteRecords = async () => { } }) => {
     const uniqueDates = Array.from(
         new Set(records.map(r => formatDayMonthName(new Date(r.startTime))))
     ).sort((a, b) => new Date(b) - new Date(a));
@@ -26,7 +28,11 @@ export const ActivityRecordsLog = ({ getActivityById = () => { }, records = [] }
                 const activity = getActivityById(r.activityId);
                 return {
                     id: r.id,
-                    data: <RecordItemFactory type={r.type} activity={activity} record={r} />,
+                    data: <RecordItemFactory
+                        type={r.type}
+                        activity={activity}
+                        record={r}
+                        deleteRecords={deleteRecords}/>,
                     img: activity?.img,
                     contentBetween: `'${getDiff(sortRecords, index)}'`
                 };
@@ -43,7 +49,7 @@ export const ActivityRecordsLog = ({ getActivityById = () => { }, records = [] }
     }));
 
     return (
-        <Group mode="plain">
+        <Group className="ActivityRecordsLog" mode="plain">
             <ImageUL list={list}></ImageUL>
         </Group>
     );

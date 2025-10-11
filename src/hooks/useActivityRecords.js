@@ -4,16 +4,14 @@ import { ActivityRecord, activityRecordFactory } from "../api/types/types";
 import { ScreenSpinner } from "@vkontakte/vkui";
 import {
     createRecord, getByBabyId,
-    getByBabyIdAndGroupId, updateRecord, deleteRecord
+    getByBabyIdAndGroupId, updateRecord, deleteRecord, getById
 } from "../api/activityRecords";
 
 export const useActivityRecords = ({ userId, babyId, groupId }) => {
     const [records, setRecords] = useState([]);
     const [popout, setPopout] = useState(<ScreenSpinner />);
 
-
     async function refresh(fetchRecords) {
-        //TODO исправить
         const newRecords = fetchRecords?.map(b => activityRecordFactory(b));
         setRecords(newRecords);
         setPopout(null);
@@ -36,21 +34,26 @@ export const useActivityRecords = ({ userId, babyId, groupId }) => {
 
     const deleteRecords = async (deletedIds) => {
         for (const id of deletedIds) {
-            const fetchRecords = await deleteRecord(userId, id);
-            refresh(fetchRecords);
+            deleteRecord(userId, id).finally(() => fetchData());
         }
     }
 
     const update = async (record) => {
         const r = await updateRecord(userId, record);
-        //TODO исправить
-        return new ActivityRecord(r);
+        return activityRecordFactory(r);
     }
 
-    async function get(groupId) {
+    async function getByBabyAndGroup(groupId) {
         const fetchRecords = await getByBabyIdAndGroupId(userId, babyId, groupId);
         refresh(fetchRecords);
     }
 
-    return [records, add, deleteRecords, update, get, fetchData, popout];
+    async function getByRecordId(id) {
+        if (userId) {
+            const r = await getById(userId, id);
+            return activityRecordFactory(r);
+        }
+    }
+
+    return [records, add, deleteRecords, update, getByBabyAndGroup, getByRecordId, fetchData, popout];
 }

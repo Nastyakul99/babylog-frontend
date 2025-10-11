@@ -5,7 +5,7 @@ import { ScreenSpinner } from "@vkontakte/vkui";
 import { getBabyByPersonVkId, createBaby, deleteBaby, getBabyById, updateBaby } from "../api/babies";
 
 export const useBabies = ({ userId }) => {
-    const [babies, setBabies] = useState([]);
+    const [babies, setBabies] = useState(null);
     const [popout, setPopout] = useState(<ScreenSpinner />);
 
     async function refresh(fetchBabies) {
@@ -15,7 +15,7 @@ export const useBabies = ({ userId }) => {
     }
 
     async function fetchData() {
-        const fetchBabies = userId ? await getBabyByPersonVkId(userId) : [];//TODO
+        const fetchBabies = userId ? await getBabyByPersonVkId(userId) : null;//TODO
         refresh(fetchBabies);
     }
 

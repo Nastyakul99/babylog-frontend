@@ -3,5 +3,10 @@
 }
 
 .PanelGroups__card {
-    padding: 3px;
+    padding: 0.2em;
+    width: 10em;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
