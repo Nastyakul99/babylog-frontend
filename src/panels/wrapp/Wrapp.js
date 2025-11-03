@@ -1,6 +1,7 @@
 import { Panel, PanelHeader } from '@vkontakte/vkui';
 import PropTypes from 'prop-types';
 import { SettingsButton } from '../settings/SettingsButton';
+import { ChartButton } from '../../components/ChartButton';
 import { BackButton } from './BackButton';
 import { DEFAULT_VIEW_PANELS } from '../../routes';
 import { BabyDropdown } from '../../components/BabyDropdown';
@@ -12,7 +13,8 @@ import { FixedLayout } from '@vkontakte/vkui';
 export const Wrapp = ({ id, children, babies = [],
   selectedBaby = null, onChangeBaby = () => { },
   records = [], getActivityById = () => { },
-  deleteRecords = async () => { } }) => {
+  deleteRecords = async () => { },
+  content }) => {
 
   const ifSettings = () => {
     return id === DEFAULT_VIEW_PANELS.SETTINGS;
@@ -31,14 +33,18 @@ export const Wrapp = ({ id, children, babies = [],
   return (
     <Panel id={id}>
       <div className="Wrapp">
-        <PanelHeader
-          className='Wrapp__PanelHeader'
-          fixed
-          before={before}
-          after={!ifSettings() && <SettingsButton></SettingsButton>}>
-        </PanelHeader>
-        <FixedLayout vertical="top">{children}</FixedLayout>
+        <FixedLayout vertical="top">
+          <PanelHeader
+            className='Wrapp__PanelHeader'
+            fixed
+            before={before}
+            after={!ifSettings() && <><SettingsButton></SettingsButton>
+              <ChartButton></ChartButton></>}>
+          </PanelHeader>
+          {children}
+        </FixedLayout>
         <div className="Wrapp__content">
+          {content}
           {records.length > 0 && <ActivityRecordsLog
             getActivityById={getActivityById}
             records={records}
@@ -59,4 +65,5 @@ Wrapp.propTypes = {
   onChangeBaby: PropTypes.func,
   records: PropTypes.array,
   getActivityById: PropTypes.func,
+  content: PropTypes.element
 };

@@ -4,7 +4,7 @@
 }
 
 .Wrapp__content {
-    padding-top: var(--group-header-spacing);
+    padding-top: calc(var(--vkui_internal--panel_header_height) + var(--group-header-spacing) + 2 * var(--vkui--spacing_size_l));
 }
 
 .InfoAlert {

@@ -25,12 +25,12 @@ const AppModalRoot = ({ person, addBaby = async () => { },
 
   return (
     person.vkId && <ModalRoot activeModal={activeModal} onClose={onClose}>
-      <ModalPage id={MODALS.EDIT_BABY_MODAL} onClose={onClose}>
+      <ModalPage settlingHeight={99} id={MODALS.EDIT_BABY_MODAL} onClose={onClose}>
         <EditBabyModal onClose={onClose}
           add={addBaby} get={getBaby} update={updateBaby}>
         </EditBabyModal>
       </ModalPage>
-      <ModalPage id={MODALS.EDIT_RECORD} onClose={onClose}>
+      <ModalPage settlingHeight={99} id={MODALS.EDIT_RECORD} onClose={onClose}>
         <EditRecordModal
           onClose={onClose}
           get={getRecord}

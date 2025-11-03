@@ -6,6 +6,7 @@ import { DEFAULT_VIEW_PANELS } from './routes';
 import { usePerson } from './hooks/usePerson';
 import { Activities } from './panels/Activities';
 import { Settings } from './panels/settings/Settings';
+import { Charts } from './panels/charts/Charts';
 import AppModalRoot from './components/modals/AppModalRoot';
 import { useBabies } from './hooks/useBabies';
 import { useActivityRecords } from './hooks/useActivityRecords';
@@ -63,7 +64,7 @@ export const App = () => {
             onChangeBaby={onChangeBaby}
             records={records}
             groups={groups}
-            deleteRecords={deleteRecords}/>
+            deleteRecords={deleteRecords} />
           <Activities
             id="activities"
             getActivityById={getActivityById}
@@ -74,8 +75,23 @@ export const App = () => {
             records={records}
             deleteRecords={deleteRecords}>
           </Activities>
-          <Settings id="settings" person={person}
-            babies={babies} deleteBabies={deleteBabies} selectedBaby={selectedBaby}></Settings>
+          <Settings
+            id="settings"
+            person={person}
+            babies={babies}
+            deleteBabies={deleteBabies}
+            selectedBaby={selectedBaby}>
+          </Settings>
+          <Charts
+            id="charts"
+            getActivityById={getActivityById}
+            babies={babies}
+            selectedBaby={selectedBaby}
+            onChangeBaby={onChangeBaby}
+            records={records}
+            groups={groups}
+            deleteRecords={deleteRecords} >
+          </Charts>
         </View>}
       </SplitCol>
       {/* {popout} */}

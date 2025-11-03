@@ -1,5 +1,4 @@
 .ImageUL {
-    --icon-size: 30px;
     --imageUL-background: url('https://img.icons8.com/plasticine/100/cat-footprint.png');
     --imageUL-contentBetween: "";
     --imageUL__li-mrg: calc(1em + 10px);
@@ -20,13 +19,14 @@
     height: var(--icon-size);
     background-size: var(--icon-size) var(--icon-size);
     left: -30px;
-    top: -2px;
+    top: -5px;
 }
 
 .ImageUL__li::before {
+    font-style: oblique;
+    font-size: calc(0.5em + 0.7vw);
     content: var(--imageUL-contentBetween);
     position: absolute;
-    height: var(--icon-size);
-    left: -30px;
+    left: -50px;
     top: 25px;
 }

@@ -1,6 +1,6 @@
 import { IntegerAndTimeRange, TYPE_ACTIVITY_RECORD } from "../../api/types/types";
 import { useState, useEffect } from "react";
-import { formatDateHHmmss } from "../../utils/formatDateHHmmss";
+import { formatDateHHmmss } from "../../utils/dateUtils";
 import { WrapEditor } from "./WrapEditor";
 import PropTypes from "prop-types";
 import { TextTimeDiff } from "./TextTimeDiff";

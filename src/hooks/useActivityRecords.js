@@ -10,6 +10,7 @@ import {
 export const useActivityRecords = ({ userId, babyId, groupId }) => {
     const [records, setRecords] = useState([]);
     const [popout, setPopout] = useState(<ScreenSpinner />);
+    console.log(records)
 
     async function refresh(fetchRecords) {
         const newRecords = fetchRecords?.map(b => activityRecordFactory(b));

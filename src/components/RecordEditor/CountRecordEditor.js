@@ -1,6 +1,6 @@
 import { IntegerAndTimeRange, TYPE_ACTIVITY_RECORD } from "../../api/types/types";
 import { useState, useEffect } from "react";
-import { formatDateHHmmss } from "../../utils/formatDateHHmmss";
+import { formatDateHHmmss } from "../../utils/dateUtils";
 import { WrapEditor } from "./WrapEditor";
 import PropTypes from "prop-types";
 import { TextTimeDiff } from "./TextTimeDiff";
@@ -34,7 +34,7 @@ export const CountRecordEditor = ({ activity, babyId,
         }}>
         <TextTimeDiff record={record}></TextTimeDiff>
         <div className="IntRecordEditor__container">
-            <span className="IntRecordEditor__text">Кол-во пробуждений:</span>
+            <span className="IntRecordEditor__text">пробуждений:</span>
             <CFormInput
                 type="number"
                 min={0}

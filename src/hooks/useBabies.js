@@ -42,6 +42,7 @@ export const useBabies = ({ userId }) => {
 
     const update = async (baby) => {
         const b = await updateBaby(userId, baby);
+        fetchData();
         return new Baby(b);
     }
 

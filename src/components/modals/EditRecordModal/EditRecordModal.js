@@ -53,10 +53,11 @@ export const EditRecordModal = ({ onClose = () => { },
 
     return record && <>
         <ModalPageHeader before={<Image src={activity.img}></Image>}>{activity.name}</ModalPageHeader>
-        <Group>
+        <Group className="AppModal">
             <form onSubmit={(e) => { e.preventDefault(); save() }}>
                 <FormItem top="Начало" htmlFor="date">
-                    <DateInput id="date"
+                    <DateInput
+                        id="startTime"
                         aria-label="Начало"
                         enableTime={true}
                         value={new Date(record.startTime)}
@@ -69,7 +70,7 @@ export const EditRecordModal = ({ onClose = () => { },
                     setRecord={setRecord}>
                 </FormEditRecordFactory>
                 <FormItem>
-                    <Button type="submit" size="l" stretched>
+                    <Button className="AppButton" type="submit" size="l" stretched>
                         Сохранить
                     </Button>
                 </FormItem>

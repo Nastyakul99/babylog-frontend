@@ -66,7 +66,7 @@ export const EditBabyModal = ({ onClose = () => { },
     return <>
         <ModalPageHeader
             after={baby ? <Avatar src={getBabyPhoto(baby)}></Avatar> : <></>}>Малыш</ModalPageHeader>
-        <Group>
+        <Group className="AppModal">
             {baby && <>
                 <form onSubmit={(e) => { e.preventDefault(); save() }}>
                     <FormItem top="Имя" htmlFor="name">
@@ -95,13 +95,14 @@ export const EditBabyModal = ({ onClose = () => { },
                         />
                     </FormItem>
                     <FormItem top="День рождения" htmlFor="date">
-                        <DateInput id="date"
+                        <DateInput
+                            id="birthDate"
                             aria-label="День рождения"
                             value={new Date(baby.birthDate)}
                             onChange={handleBirthDateChange} />
                     </FormItem>
                     <FormItem>
-                        <Button type="submit" size="l" stretched>
+                        <Button className="AppButton" type="submit" size="l" stretched>
                             Сохранить
                         </Button>
                     </FormItem>

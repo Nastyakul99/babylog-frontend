@@ -1,4 +1,4 @@
-import { formatDayMonthName } from "../../utils/formatDateHHmmss";
+import { formatDayMonthName } from "../../utils/dateUtils";
 import { Group } from "@vkontakte/vkui";
 import { ImageUL } from "../ImageUL/ImageUL";
 import PropTypes from 'prop-types';

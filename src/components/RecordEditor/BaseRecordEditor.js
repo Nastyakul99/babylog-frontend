@@ -1,6 +1,6 @@
 import { ActivityRecord } from "../../api/types/types";
 import { useEffect } from "react";
-import { formatDateHHmmss } from "../../utils/formatDateHHmmss";
+import { formatDateHHmmss } from "../../utils/dateUtils";
 import { WrapEditor } from "./WrapEditor";
 import PropTypes from "prop-types";
 

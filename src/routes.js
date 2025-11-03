@@ -14,7 +14,8 @@ export const DEFAULT_VIEW = 'default_view';
 export const DEFAULT_VIEW_PANELS = {
   HOME: 'home',
   SETTINGS: 'settings',
-  ACTIVITIES: 'activities'
+  ACTIVITIES: 'activities',
+  CHARTS: 'charts'
 };
 
 export const MODALS = {
@@ -37,6 +38,7 @@ export const routes = RoutesConfig.create([
         createModal(MODALS.EDIT_BABY_MODAL,
           `/${DEFAULT_VIEW_PANELS.SETTINGS}/baby/modal/:id`, ['id']),
       ]),
+      createPanel(DEFAULT_VIEW_PANELS.CHARTS, '/charts', []),
     ]),
   ]),
 ]);

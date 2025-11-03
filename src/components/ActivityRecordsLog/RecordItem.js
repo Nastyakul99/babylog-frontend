@@ -1,4 +1,4 @@
-import { formatHHmmss } from "../../utils/formatDateHHmmss"
+import { formatHHmmss } from "../../utils/dateUtils"
 import { getTimeDiffUOM } from "../../utils/timeDiff"
 import PropTypes from "prop-types";
 import { Activity } from "../../api/types/types";

@@ -2,7 +2,7 @@ import "./TextNoteEditor.css"
 import { Textarea } from "@vkontakte/vkui"
 import { TextNoteRecord } from "../../api/types/types";
 import { useState } from "react";
-import { formatDateHHmmss } from "../../utils/formatDateHHmmss";
+import { formatDateHHmmss } from "../../utils/dateUtils";
 import { WrapEditor } from "./WrapEditor";
 import PropTypes from "prop-types";
 

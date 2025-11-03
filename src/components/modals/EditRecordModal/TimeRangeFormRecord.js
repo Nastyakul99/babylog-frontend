@@ -8,7 +8,8 @@ export const TimeRangeFormRecord = ({ record, setRecord }) => {
     };
 
     return <FormItem top="Конец" htmlFor="date">
-        <DateInput id="date"
+        <DateInput
+            id="endTime"
             aria-label="Конец"
             enableTime={true}
             value={new Date(record.endTime)}

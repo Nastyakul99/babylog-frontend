@@ -1,4 +1,5 @@
 :root {
+    --icon-size: 30px;
     --group-header-height: 25vh;
     --group-header-spacing: var(--group-header-height);
     --text-color: #3C0906;
@@ -7,8 +8,19 @@
     --color-brown: #84352D;
 }
 
-.AppButton {
+.Wrapp ::selection, .AppModal ::selection {
+  color: white;
+  background-color: var(--text-color);
+}
+
+.AppButton, .AppModal button.AppButton {
     color: var(--color-bg-light);
+    background-color: var(--color-brown);
+}
+
+.AppButton:hover, .AppModal button.AppButton:hover {
+    color: var(--color-bg-light);
+    background-color: var( --text-color);
 }
 
 .Wrapp .AppButton--light,
