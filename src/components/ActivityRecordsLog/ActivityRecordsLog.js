@@ -8,9 +8,13 @@ import "./ActivityRecordsLog.css"
 
 export const ActivityRecordsLog = ({ getActivityById = () => { }, records = [],
     deleteRecords = async () => { } }) => {
+
+    const sortByStartTimeDesc = (a, b) => new Date(b.startTime) - new Date(a.startTime);
+
     const uniqueDates = Array.from(
-        new Set(records.map(r => formatDayMonthName(new Date(r.startTime))))
-    ).sort((a, b) => new Date(b) - new Date(a));
+        new Set([...records].sort(sortByStartTimeDesc)
+            .map(r => formatDayMonthName(new Date(r.startTime))))
+    );
 
     const getDiff = (array, index) => {
         if (index < array.length - 1) {
@@ -32,7 +36,7 @@ export const ActivityRecordsLog = ({ getActivityById = () => { }, records = [],
                         type={r.type}
                         activity={activity}
                         record={r}
-                        deleteRecords={deleteRecords}/>,
+                        deleteRecords={deleteRecords} />,
                     img: activity?.img,
                     contentBetween: `'${getDiff(sortRecords, index)}'`
                 };

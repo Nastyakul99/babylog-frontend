@@ -76,7 +76,7 @@ export const TimeRangeBarChart = ({
         }
     };
 
-    const labels = dates.sort();
+    const labels = [...dates].sort();
 
     const getData = (a) => {
         let res = [];
