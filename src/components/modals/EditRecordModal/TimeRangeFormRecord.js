@@ -3,7 +3,7 @@ import { DateInput } from "@vkontakte/vkui";
 
 export const TimeRangeFormRecord = ({ record, setRecord }) => {
     const handleEndTimeChange = (value) => {
-        const date = value.toISOString();
+        const date = value && value.toISOString();
         setRecord((prev) => ({ ...prev, endTime: date }));
     };
 
@@ -12,7 +12,7 @@ export const TimeRangeFormRecord = ({ record, setRecord }) => {
             id="endTime"
             aria-label="Конец"
             enableTime={true}
-            value={new Date(record.endTime)}
+            value={record.endTime && new Date(record.endTime)}
             onChange={handleEndTimeChange}
         />
     </FormItem>

@@ -15,7 +15,7 @@ import { useActivityGroups } from './hooks/useActivityGroups';
 import '@coreui/coreui/dist/css/coreui.min.css'
 import "./App.css";
 import { useLocalStorage } from './hooks/useLocalStorage';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export const App = () => {
   const { groupId } = useParams();
@@ -28,6 +28,16 @@ export const App = () => {
     getRecord, refreshRecord] = useActivityRecords({ userId: person.vkId, babyId: selectedBaby?.id, groupId: groupId });
   const [activities, , , getActivityById] = useActivities({ groupId });
   const [groups] = useActivityGroups();
+  const [unfinishedRecord, setUnfinishedRecord] = useState(null);
+
+  useEffect(() => {
+    const unfinished = records.find(r => r.endTime === null);
+    if (unfinished) {
+      setUnfinishedRecord(unfinished);
+      return;
+    }
+    setUnfinishedRecord(null);
+  }, [records])
 
 
   const onChangeBaby = (newBaby) => {
@@ -64,7 +74,10 @@ export const App = () => {
             onChangeBaby={onChangeBaby}
             records={records}
             groups={groups}
-            deleteRecords={deleteRecords} />
+            deleteRecords={deleteRecords}
+            unfinishedRecord={unfinishedRecord}
+            setUnfinishedRecord={setUnfinishedRecord}
+            updateRecord={updateRecord} />
           <Activities
             id="activities"
             getActivityById={getActivityById}
@@ -73,7 +86,10 @@ export const App = () => {
             babies={babies}
             createRecord={addRecord}
             records={records}
-            deleteRecords={deleteRecords}>
+            deleteRecords={deleteRecords}
+            unfinishedRecord={unfinishedRecord}
+            updateRecord={updateRecord}
+            setUnfinishedRecord={setUnfinishedRecord}>
           </Activities>
           <Settings
             id="settings"

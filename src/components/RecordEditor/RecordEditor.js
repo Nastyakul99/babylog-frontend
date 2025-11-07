@@ -6,42 +6,39 @@ import { TYPE_ACTIVITY_RECORD } from "../../api/types/types";
 import { MLRecordEditor } from "./MLRecordEditor";
 import PropTypes from 'prop-types';
 
-export const RecordEditor = ({ activity = null, babyId,
-    create = () => { }, setSelectedActivity = () => { } }) => {
+export const RecordEditor = ({
+    getActivityById = () => { },
+    update = () => { },
+    selectedRecord = null,
+    setSelectedRecord = () => { } }) => {
+
+    const activity = getActivityById(selectedRecord.activityId);
 
     const getEditor = () => {
         switch (activity.type) {
             case TYPE_ACTIVITY_RECORD.TIME_RANGE:
-                return <TimeRangeEditor activity={activity}
-                    babyId={babyId} create={create} setSelectedActivity={setSelectedActivity}>
+                return <TimeRangeEditor record={selectedRecord} setRecord={setSelectedRecord} activity={activity} update={update}>
                 </TimeRangeEditor>;
             case TYPE_ACTIVITY_RECORD.TEXT_NOTE:
-                return <TextNoteEditor activity={activity}
-                    babyId={babyId} create={create} setSelectedActivity={setSelectedActivity}>
+                return <TextNoteEditor record={selectedRecord} setRecord={setSelectedRecord} activity={activity} update={update}>
                 </TextNoteEditor>;
             case TYPE_ACTIVITY_RECORD.BASE_RECORD:
-                return <BaseRecordEditor activity={activity}
-                    babyId={babyId} create={create} setSelectedActivity={setSelectedActivity}>
+                return <BaseRecordEditor record={selectedRecord} setRecord={setSelectedRecord} activity={activity} update={update}>
                 </BaseRecordEditor>;
             case TYPE_ACTIVITY_RECORD.COUNT_RECORD:
-                return <CountRecordEditor activity={activity}
-                    babyId={babyId} create={create} setSelectedActivity={setSelectedActivity}>
+                return <CountRecordEditor record={selectedRecord} setRecord={setSelectedRecord} activity={activity} update={update}>
                 </CountRecordEditor>;
             case TYPE_ACTIVITY_RECORD.ML_RECORD:
-                return <MLRecordEditor activity={activity}
-                    babyId={babyId} create={create} setSelectedActivity={setSelectedActivity}>
+                return <MLRecordEditor record={selectedRecord} setRecord={setSelectedRecord} activity={activity} update={update}>
                 </MLRecordEditor>;
             default:
                 return null;
         }
     }
-
     return activity && getEditor() || <></>;
 }
 
 RecordEditor.propTypes = {
-    activity: PropTypes.object.isRequired,
-    babyId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    create: PropTypes.func,
-    setSelectedActivity: PropTypes.func,
+    update: PropTypes.func,
+    selectedRecord: PropTypes.object
 };

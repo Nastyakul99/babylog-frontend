@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { ActivityRecord, activityRecordFactory } from "../api/types/types";
+import { activityRecordFactory } from "../api/types/types";
 import { ScreenSpinner } from "@vkontakte/vkui";
 import {
     createRecord, getByBabyId,
@@ -41,6 +41,7 @@ export const useActivityRecords = ({ userId, babyId, groupId }) => {
 
     const update = async (record) => {
         const r = await updateRecord(userId, record);
+        fetchData();
         return activityRecordFactory(r);
     }
 

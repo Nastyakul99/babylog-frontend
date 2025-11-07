@@ -9,12 +9,16 @@ import { ActivityRecordsLog } from '../../components/ActivityRecordsLog/Activity
 import "./Wrapp.css"
 import { InfoAlert } from './InfoAlert';
 import { FixedLayout } from '@vkontakte/vkui';
+import { RecordEditor } from '../../components/RecordEditor/RecordEditor';
 
 export const Wrapp = ({ id, children, babies = [],
   selectedBaby = null, onChangeBaby = () => { },
   records = [], getActivityById = () => { },
   deleteRecords = async () => { },
-  content }) => {
+  content,
+  unfinishedRecord,
+  updateRecord = () => { },
+  setUnfinishedRecord = () => { } }) => {
 
   const ifSettings = () => {
     return id === DEFAULT_VIEW_PANELS.SETTINGS;
@@ -45,6 +49,13 @@ export const Wrapp = ({ id, children, babies = [],
         </FixedLayout>
         <div className="Wrapp__content">
           {content}
+          {unfinishedRecord &&
+            <RecordEditor
+              getActivityById={getActivityById}
+              update={updateRecord}
+              selectedRecord={unfinishedRecord}
+              setSelectedRecord={setUnfinishedRecord}>
+            </RecordEditor>}
           {records.length > 0 && <ActivityRecordsLog
             getActivityById={getActivityById}
             records={records}
