@@ -16,7 +16,7 @@ export const Wrapp = ({ id, children, babies = [],
   records = [], getActivityById = () => { },
   deleteRecords = async () => { },
   content,
-  unfinishedRecord,
+  unfinishedRecords = [],
   updateRecord = () => { },
   setUnfinishedRecord = () => { } }) => {
 
@@ -49,13 +49,13 @@ export const Wrapp = ({ id, children, babies = [],
         </FixedLayout>
         <div className="Wrapp__content">
           {content}
-          {unfinishedRecord &&
-            <RecordEditor
-              getActivityById={getActivityById}
-              update={updateRecord}
-              selectedRecord={unfinishedRecord}
-              setSelectedRecord={setUnfinishedRecord}>
-            </RecordEditor>}
+          {unfinishedRecords.map(r => <RecordEditor
+            key={r.id}
+            getActivityById={getActivityById}
+            update={updateRecord}
+            selectedRecord={r}
+            setSelectedRecord={setUnfinishedRecord}>
+          </RecordEditor>)}
           {records.length > 0 && <ActivityRecordsLog
             getActivityById={getActivityById}
             records={records}

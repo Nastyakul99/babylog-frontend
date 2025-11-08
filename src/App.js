@@ -16,6 +16,7 @@ import '@coreui/coreui/dist/css/coreui.min.css'
 import "./App.css";
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useEffect, useState } from 'react';
+import { findUnfinished } from './calcRecords/calcRecords';
 
 export const App = () => {
   const { groupId } = useParams();
@@ -28,16 +29,21 @@ export const App = () => {
     getRecord, refreshRecord] = useActivityRecords({ userId: person.vkId, babyId: selectedBaby?.id, groupId: groupId });
   const [activities, , , getActivityById] = useActivities({ groupId });
   const [groups] = useActivityGroups();
-  const [unfinishedRecord, setUnfinishedRecord] = useState(null);
+  const [unfinishedRecords, setUnfinishedRecords] = useState([]);
 
   useEffect(() => {
-    const unfinished = records.find(r => r.endTime === null);
-    if (unfinished) {
-      setUnfinishedRecord(unfinished);
+    const unfinished = findUnfinished(records);
+    if (unfinished.length > 0) {
+      setUnfinishedRecords(unfinished);
       return;
     }
-    setUnfinishedRecord(null);
+    setUnfinishedRecords([]);
   }, [records])
+
+  const setUnfinishedRecord = (record) => {
+    const unfinished = unfinishedRecords.map(r => r.id === record.id ? record : r);
+    setUnfinishedRecords(unfinished);
+  }
 
 
   const onChangeBaby = (newBaby) => {
@@ -75,7 +81,7 @@ export const App = () => {
             records={records}
             groups={groups}
             deleteRecords={deleteRecords}
-            unfinishedRecord={unfinishedRecord}
+            unfinishedRecords={unfinishedRecords}
             setUnfinishedRecord={setUnfinishedRecord}
             updateRecord={updateRecord} />
           <Activities
@@ -87,7 +93,7 @@ export const App = () => {
             createRecord={addRecord}
             records={records}
             deleteRecords={deleteRecords}
-            unfinishedRecord={unfinishedRecord}
+            unfinishedRecords={unfinishedRecords}
             updateRecord={updateRecord}
             setUnfinishedRecord={setUnfinishedRecord}>
           </Activities>

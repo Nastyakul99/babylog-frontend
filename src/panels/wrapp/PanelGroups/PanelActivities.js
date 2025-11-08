@@ -5,6 +5,7 @@ import PropTypes from "prop-types"
 import { Activity } from "../../../api/types/types"
 import { formatDateHHmmss } from "../../../utils/dateUtils"
 import { activityRecordFactory } from "../../../api/types/types"
+import { findUnfinished } from "../../../calcRecords/calcRecords"
 
 export const PanelActivities = ({
     babyId,
@@ -28,7 +29,7 @@ export const PanelActivities = ({
 
     return (group && <PanelGroups header={group?.name}
         groups={activities}
-        onClick={onClick}>
+        onClick={findUnfinished(records).length > 0 ? null : onClick}>
     </PanelGroups>) || <></>;
 }
 

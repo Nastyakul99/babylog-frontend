@@ -17,7 +17,7 @@ export const TextNoteEditor = ({
         }}>
         <Textarea className={"TextNoteEditor__Textarea"}
             value={record.comment}
-            onChange={(event) => setRecord((prev) => ({ ...prev, comment: event.target.value }))}></Textarea>
+            onChange={(event) => setRecord({ ...record, comment: event.target.value })}></Textarea>
     </WrapEditor>;
 }
 

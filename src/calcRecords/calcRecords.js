@@ -40,3 +40,7 @@ export function sumTimeInRange(records, rangeStart, rangeEnd) {
 
   return totalMinutes;
 }
+
+export function findUnfinished(records) {
+  return records.filter(r => r.endTime === null);
+}

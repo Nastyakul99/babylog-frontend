@@ -6,7 +6,7 @@ import { useState } from 'react';
 import './PanelGroups.css';
 import PropTypes from 'prop-types';
 
-export const PanelGroups = ({ header, onClick = () => { }, groups = [] }) => {
+export const PanelGroups = ({ header, onClick, groups = [] }) => {
 
     const [selected, setSelected] = useState(null);
 
@@ -14,19 +14,20 @@ export const PanelGroups = ({ header, onClick = () => { }, groups = [] }) => {
         <CardScroll className="Workspace__content" size={false}>
             {groups.map((g) => {
                 return <Card
-                        key={g.id}
-                        className='PanelGroups__card'
-                        onMouseEnter={() => setSelected(g)}
-                        onMouseLeave={() => setSelected(null)}
-                        mode={selected?.name === g.name ? null : "plain"}
-                        onClick={() => { onClick(g) }}>
-                        <IconButton
-                            className='PanelGroups__iconButton'
-                            label={g.name} title={g.name} hasHover={false}>
-                            <Image src={g.img}></Image>
-                        </IconButton>
-                        <span>{g.name}</span>
-                    </Card>
+                    key={g.id}
+                    className='PanelGroups__card'
+                    onMouseEnter={() => setSelected(g)}
+                    onMouseLeave={() => setSelected(null)}
+                    mode={selected?.name === g.name ? null : "plain"}
+                    onClick={() => { if (onClick != null) { onClick(g) } }}>
+                    <IconButton
+                        disabled={onClick == null}
+                        className='PanelGroups__iconButton'
+                        label={g.name} title={g.name} hasHover={false}>
+                        <Image src={g.img}></Image>
+                    </IconButton>
+                    <span>{g.name}</span>
+                </Card>
             })}
         </CardScroll>
     </Group>

@@ -24,7 +24,7 @@ export const CountRecordEditor = ({
                 max={100}
                 step={1}
                 value={record.val}
-                onChange={(event) => setRecord((prev) => ({ ...prev, val: parseInt(event.target.value, 10) }))}
+                onChange={(event) => setRecord({ ...record, val: parseInt(event.target.value, 10) })}
             />
         </div>
     </WrapEditor>;

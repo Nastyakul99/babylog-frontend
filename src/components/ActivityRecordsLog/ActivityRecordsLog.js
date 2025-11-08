@@ -8,11 +8,12 @@ import "./ActivityRecordsLog.css"
 
 export const ActivityRecordsLog = ({ getActivityById = () => { }, records = [],
     deleteRecords = async () => { } }) => {
+    const finishedRecords = records.filter(r => !(r.endTime === null));
 
     const sortByStartTimeDesc = (a, b) => new Date(b.startTime) - new Date(a.startTime);
 
     const uniqueDates = Array.from(
-        new Set([...records].sort(sortByStartTimeDesc)
+        new Set([...finishedRecords].sort(sortByStartTimeDesc)
             .map(r => formatDayMonthName(new Date(r.startTime))))
     );
 
@@ -25,7 +26,7 @@ export const ActivityRecordsLog = ({ getActivityById = () => { }, records = [],
     }
 
     const getRecordsByDate = (date) => {
-        const sortRecords = records.filter(r => formatDayMonthName(new Date(r.startTime)) === date)
+        const sortRecords = finishedRecords.filter(r => formatDayMonthName(new Date(r.startTime)) === date)
             .sort((a, b) => new Date(b.startTime) - new Date(a.startTime));
         return sortRecords
             .map((r, index) => {

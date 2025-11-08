@@ -22,7 +22,7 @@ export const MLRecordEditor = ({ activity,
                 max={1000}
                 step={10}
                 value={record.val}
-                onChange={(event) => setRecord((prev) => ({ ...prev, val: parseInt(event.target.value, 10) }))}
+                onChange={(event) => setRecord({ ...record, val: parseInt(event.target.value, 10) })}
             />
             <span className="IntRecordEditor__text">мл</span>
         </div>
