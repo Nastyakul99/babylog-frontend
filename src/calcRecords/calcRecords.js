@@ -41,6 +41,30 @@ export function sumTimeInRange(records, rangeStart, rangeEnd) {
   return totalMinutes;
 }
 
+export function sumValInRange(records, rangeStart, rangeEnd) {
+  const filteredRecords = filterRecordsByTimeRange(records, rangeStart, rangeEnd);
+  const start = new Date(rangeStart);
+  const end = new Date(rangeEnd);
+
+  let totalVal = 0;
+
+  filteredRecords.forEach(record => {
+    const recordStart = new Date(record.startTime);
+    const recordEnd = new Date(record.endTime);
+
+    const effectiveStart = recordStart < start ? start : recordStart;
+    const effectiveEnd = recordEnd > end ? end : recordEnd;
+
+    const effectDiff = effectiveEnd - effectiveStart;
+    const diff = recordEnd - recordStart;
+    const percent = (effectDiff * 100) / diff;
+    const val = (record.val ? record.val : 0) * percent / 100;
+    totalVal += val;
+  });
+
+  return totalVal;
+}
+
 export function findUnfinished(records) {
   return records.filter(r => r.endTime === null);
 }

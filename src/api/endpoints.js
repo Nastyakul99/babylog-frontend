@@ -68,6 +68,22 @@ export const ENDPOINTS = {
         }
     },
 
+    activityGroupMetadata: {
+        get: {
+            uri: "activityGroupMetadata",
+            method: HTTP_METHODS.GET,
+            requestClass: null
+        },
+    },
+
+    activityMetadata: {
+        get: {
+            uri: "activityMetadata",
+            method: HTTP_METHODS.GET,
+            requestClass: null
+        },
+    },
+
     babies: {
         create: {
             uri: "babies",

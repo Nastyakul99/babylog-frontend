@@ -1,7 +1,5 @@
-import { filterRecordByTimeRange } from '../../calcRecords/calcRecords';
+import { sumValInRange } from '../../calcRecords/calcRecords';
 import { getDayStartEnd } from '../../utils/dateUtils';
-import { isSameDay } from '../../utils/dateUtils';
-import { updateDate } from '../../utils/dateUtils';
 import { formatHHmmss } from '../../utils/dateUtils';
 import PropTypes from 'prop-types';
 
@@ -13,32 +11,33 @@ import {
     Title,
     Tooltip,
     Legend,
+    LinearScale,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import 'chartjs-adapter-moment';
 
 ChartJS.register(
     CategoryScale,
-    TimeScale,
+    LinearScale,
     BarElement,
     Title,
     Tooltip,
     Legend
 );
 
-export const TimeRangeBarChart = ({
+export const SumValBarChart  = ({
     text = "",
     activities = [],
     records = [],
     dates = [],
     ...props }) => {
 
-    const FAKE_DATE = "2025-01-01";
-    const [fakeStart, fakeEnd] = getDayStartEnd(FAKE_DATE);
-
     const printTooltipLabel = (context) => {
-        const [s, e] = context.raw.y;
-        return `${formatHHmmss(new Date(s))} - ${formatHHmmss(new Date(e))}`;
+        return context.raw.y + " мл";
+    }
+
+    const printYTick = (value) => {
+        return value + " мл";
     }
 
     const options = {
@@ -59,20 +58,10 @@ export const TimeRangeBarChart = ({
         },
         scales: {
             y: {
-                type: 'time',
-                time: {
-                    unit: 'minute',
-                    displayFormats: {
-                        minute: 'HH:mm'
-                    },
-                },
                 ticks: {
-                    autoSkip: false,
-                    stepSize: 1,
-                },
-                min: fakeStart,
-                max: fakeEnd,
-            },
+                    callback: printYTick,
+                }
+            }
         }
     };
 
@@ -84,15 +73,7 @@ export const TimeRangeBarChart = ({
             const d = dates[i];
             const [start, end] = getDayStartEnd(d);
             const el = records.filter(r => r.activityId === a.id)
-                .filter(r => {
-                    return filterRecordByTimeRange(r, start, end)
-                })
-                .map(r => {
-                    const s = isSameDay(r.startTime, d) ? r.startTime : start;
-                    const e = isSameDay(r.endTime, d) ? r.endTime : end;
-                    return { x: d, y: [updateDate(s, FAKE_DATE), updateDate(e, FAKE_DATE)] };
-                });
-            res = [...res, ...el];
+            res = [...res, { x: d, y: sumValInRange(el, start, end) }];
         }
         return res;
     }
@@ -117,6 +98,6 @@ export const TimeRangeBarChart = ({
     );
 };
 
-TimeRangeBarChart.propTypes = {
+SumValBarChart.propTypes = {
 
 };

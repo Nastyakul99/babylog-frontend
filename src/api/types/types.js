@@ -5,6 +5,16 @@ export const GENDER = Object.freeze({
     UNDEFINED: "UNDEFINED"
 })
 
+export const STATISTIC_TYPE = Object.freeze({
+    SUM_TIME_BAR_CHART: "SUM_TIME_BAR_CHART",
+    TIME_RANGE_BAR_CHART: "TIME_RANGE_BAR_CHART",
+    NUMBER_OF_TIMES_PER_DAY: "NUMBER_OF_TIMES_PER_DAY",
+    SUM_VAL_BAR_CHART: "SUM_VAL_BAR_CHART",
+    SUM_TIME_PER_DAY: "SUM_TIME_PER_DAY",
+    SUM_VAL_PER_DAY: "SUM_VAL_PER_DAY",
+    SUM_ONCE_PER_DAY: "SUM_ONCE_PER_DAY"
+})
+
 export class Person {
     constructor({ id = 0, vkId = 0, user = {} } = {}) {
         this.id = id;
@@ -60,19 +70,19 @@ export class ActivityRecord {
     }
 }
 
-export class TextNoteRecord extends ActivityRecord {
-    constructor({ id = -1, babyId = 0, activityId = 0, startTime = "", comment = "" } = {}) {
-        super({ id, babyId, activityId, startTime });
-        this.comment = comment;
-        this.type = TYPE_ACTIVITY_RECORD.TEXT_NOTE;
-    }
-}
-
 export class TimeRangeRecord extends ActivityRecord {
     constructor({ id = -1, babyId = 0, activityId = 0, startTime = "", endTime = "" } = {}) {
         super({ id, babyId, activityId, startTime });
         this.endTime = endTime;
         this.type = TYPE_ACTIVITY_RECORD.TIME_RANGE;
+    }
+}
+
+export class TextNoteRecord extends TimeRangeRecord {
+    constructor({ id = -1, babyId = 0, activityId = 0, startTime = "", comment = "", endTime = "" } = {}) {
+        super({ id, babyId, activityId, startTime, endTime });
+        this.comment = comment;
+        this.type = TYPE_ACTIVITY_RECORD.TEXT_NOTE;
     }
 }
 
@@ -98,7 +108,7 @@ export const activityRecordFactory = ({ id, type, babyId, activityId, startTime,
         case TYPE_ACTIVITY_RECORD.TEXT_NOTE:
             record = new TextNoteRecord({
                 id: id, babyId: babyId,
-                activityId: activityId, startTime: startTime, comment: comment
+                activityId: activityId, startTime: startTime, comment: comment, endTime: endTime
             });
             break;
         case TYPE_ACTIVITY_RECORD.COUNT_RECORD:
@@ -133,3 +143,21 @@ export const activityRecordFactory = ({ id, type, babyId, activityId, startTime,
     return record;
 }
 
+export class ActivityGroupMetadata {
+    constructor({ id = 0, activityGroupId = 0 } = {}) {
+        this.id = id;
+        this.activityGroupId = activityGroupId;
+    }
+}
+
+export class ActivityMetadata {
+    constructor({ id = 0, activityId = 0, color = "",
+        name = "", statisticType = STATISTIC_TYPE.NUMBER_OF_TIMES_PER_DAY, isChart = true } = {}) {
+        this.id = id;
+        this.activityId = activityId;
+        this.color = color;
+        this.name = name;
+        this.statisticType = statisticType;
+        this.isChart = isChart;
+    }
+}

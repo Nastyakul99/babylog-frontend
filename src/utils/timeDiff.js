@@ -1,5 +1,5 @@
 export const calcTimeDiff = (start, end) => {
-    const diffMs = end - start;
+    const diffMs = (start && end) ? (end - start) : start;
 
     const diffHrs = Math.floor(diffMs / (60 * 60 * 1000));
     const diffMin = Math.floor((diffMs - (diffHrs * 60 * 60 * 1000)) / (60 * 1000));
