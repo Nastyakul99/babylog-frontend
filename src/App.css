@@ -8,19 +8,22 @@
     --color-brown: #84352D;
 }
 
-.Wrapp ::selection, .AppModal ::selection {
-  color: white;
-  background-color: var(--text-color);
+.Wrapp ::selection,
+.AppModal ::selection {
+    color: white;
+    background-color: var(--text-color);
 }
 
-.AppButton, .AppModal button.AppButton {
+.AppButton,
+.AppModal button.AppButton {
     color: var(--color-bg-light);
     background-color: var(--color-brown);
 }
 
-.AppButton:hover, .AppModal button.AppButton:hover {
+.AppButton:hover,
+.AppModal button.AppButton:hover {
     color: var(--color-bg-light);
-    background-color: var( --text-color);
+    background-color: var(--text-color);
 }
 
 .Wrapp .AppButton--light,

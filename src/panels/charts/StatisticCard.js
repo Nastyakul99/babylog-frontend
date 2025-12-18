@@ -1,4 +1,4 @@
-import { Card, Text } from "@vkontakte/vkui"
+import { ContentCard, Text } from "@vkontakte/vkui"
 import { STATISTIC_TYPE } from "../../api/types/types"
 import { getDayStartEnd } from "../../utils/dateUtils"
 import { sumTimeInRange, sumValInRange } from "../../calcRecords/calcRecords"
@@ -64,8 +64,9 @@ export const StatisticCard = ({ data = {}, dates = [], records = [] }) => {
         });
     });
 
-    return <Card className="StatisticCard">
-        <Text>Средние значения</Text>
-        {print}
-    </Card>
+    return <ContentCard
+        title="Средние значения"
+        className="StatisticCard"
+        description={print}>
+    </ContentCard >
 }

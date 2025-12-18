@@ -23,7 +23,7 @@ export const PanelGroups = ({ header, onClick, groups = [] }) => {
                     <IconButton
                         disabled={onClick == null}
                         className='PanelGroups__iconButton'
-                        label={g.name} title={g.name} hasHover={false}>
+                        label={g.name} title={g.name} hasHover={false} hasActive={false}>
                         <Image src={g.img}></Image>
                     </IconButton>
                     <span>{g.name}</span>
