@@ -17,6 +17,11 @@ import "./App.css";
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useEffect, useState } from 'react';
 import { findUnfinished } from './calcRecords/calcRecords';
+import { createContext } from 'react';
+import { Info } from './panels/wrapp/InfoAlert/Info';
+import { ALERT_TYPES } from './panels/wrapp/InfoAlert/AlertTypes';
+
+export const ErrorContext = createContext();
 
 export const App = () => {
   const { groupId } = useParams();
@@ -30,6 +35,14 @@ export const App = () => {
   const [activities, , , getActivityById] = useActivities({ groupId });
   const [groups] = useActivityGroups();
   const [unfinishedRecords, setUnfinishedRecords] = useState([]);
+  const [errors, setErrors] = useState([]);
+
+  const addError = (newError) => {
+    const exists = errors.some(error => error.id === newError.id);
+    if (!exists) {
+      setErrors([...errors, newError]);
+    }
+  }
 
   useEffect(() => {
     const unfinished = findUnfinished(records);
@@ -39,6 +52,14 @@ export const App = () => {
     }
     setUnfinishedRecords([]);
   }, [records])
+
+  useEffect(() => {
+    if (babies) {
+      let info = (babies.length === 0 && "Добавьте малыша в настройках") || (selectedBaby == null && "Выберите малыша") || null;
+
+      if (info) addError(new Info(-1, info, ALERT_TYPES.INFO));
+    }
+  }, [babies, selectedBaby])
 
   const setUnfinishedRecord = (record) => {
     const unfinished = unfinishedRecords.map(r => r.id === record.id ? record : r);
@@ -62,59 +83,61 @@ export const App = () => {
   return (
     <SplitLayout>
       <SplitCol>
-        <AppModalRoot
-          person={person}
-          addBaby={addBaby}
-          getBaby={getBaby}
-          updateBaby={updateBaby}
-          getRecord={getRecord}
-          updateRecord={updateRecord}
-          getActivityById={getActivityById}
-          refreshRecord={refreshRecord} />
-        {babies && <View activePanel={activePanel}>
-          <Home
-            id="home"
-            getActivityById={getActivityById}
-            babies={babies}
-            selectedBaby={selectedBaby}
-            onChangeBaby={onChangeBaby}
-            records={records}
-            groups={groups}
-            deleteRecords={deleteRecords}
-            unfinishedRecords={unfinishedRecords}
-            setUnfinishedRecord={setUnfinishedRecord}
-            updateRecord={updateRecord} />
-          <Activities
-            id="activities"
-            getActivityById={getActivityById}
-            activities={activities}
-            selectedBaby={selectedBaby}
-            babies={babies}
-            createRecord={addRecord}
-            records={records}
-            deleteRecords={deleteRecords}
-            unfinishedRecords={unfinishedRecords}
-            updateRecord={updateRecord}
-            setUnfinishedRecord={setUnfinishedRecord}>
-          </Activities>
-          <Settings
-            id="settings"
+        <ErrorContext.Provider value={{ errors, setErrors, addError }}>
+          <AppModalRoot
             person={person}
-            babies={babies}
-            deleteBabies={deleteBabies}
-            selectedBaby={selectedBaby}>
-          </Settings>
-          <Charts
-            id="charts"
+            addBaby={addBaby}
+            getBaby={getBaby}
+            updateBaby={updateBaby}
+            getRecord={getRecord}
+            updateRecord={updateRecord}
             getActivityById={getActivityById}
-            babies={babies}
-            selectedBaby={selectedBaby}
-            onChangeBaby={onChangeBaby}
-            records={records}
-            groups={groups}
-            deleteRecords={deleteRecords} >
-          </Charts>
-        </View>}
+            refreshRecord={refreshRecord} />
+          {babies && <View activePanel={activePanel}>
+            <Home
+              id="home"
+              getActivityById={getActivityById}
+              babies={babies}
+              selectedBaby={selectedBaby}
+              onChangeBaby={onChangeBaby}
+              records={records}
+              groups={groups}
+              deleteRecords={deleteRecords}
+              unfinishedRecords={unfinishedRecords}
+              setUnfinishedRecord={setUnfinishedRecord}
+              updateRecord={updateRecord} />
+            <Activities
+              id="activities"
+              getActivityById={getActivityById}
+              activities={activities}
+              selectedBaby={selectedBaby}
+              babies={babies}
+              createRecord={addRecord}
+              records={records}
+              deleteRecords={deleteRecords}
+              unfinishedRecords={unfinishedRecords}
+              updateRecord={updateRecord}
+              setUnfinishedRecord={setUnfinishedRecord}>
+            </Activities>
+            <Settings
+              id="settings"
+              person={person}
+              babies={babies}
+              deleteBabies={deleteBabies}
+              selectedBaby={selectedBaby}>
+            </Settings>
+            <Charts
+              id="charts"
+              getActivityById={getActivityById}
+              babies={babies}
+              selectedBaby={selectedBaby}
+              onChangeBaby={onChangeBaby}
+              records={records}
+              groups={groups}
+              deleteRecords={deleteRecords} >
+            </Charts>
+          </View>}
+        </ErrorContext.Provider>
       </SplitCol>
       {/* {popout} */}
     </SplitLayout>

@@ -7,7 +7,6 @@ import { DEFAULT_VIEW_PANELS } from '../../routes';
 import { BabyDropdown } from '../../components/BabyDropdown';
 import { ActivityRecordsLog } from '../../components/ActivityRecordsLog/ActivityRecordsLog';
 import "./Wrapp.css"
-import { InfoAlert } from './InfoAlert';
 import { FixedLayout } from '@vkontakte/vkui';
 import { RecordEditor } from '../../components/RecordEditor/RecordEditor';
 
@@ -31,8 +30,6 @@ export const Wrapp = ({ id, children, babies = [],
   const before = ifHome() ? <BabyDropdown babies={babies}
     selectedBabyId={selectedBaby?.id || null} onChangeBaby={onChangeBaby}>
   </BabyDropdown> : <BackButton></BackButton>;
-
-  let info = (babies.length == 0 && "Добавьте малыша в настройках") || (selectedBaby == null && "Выберите малыша") || "";
 
   return (
     <Panel id={id}>
@@ -61,7 +58,6 @@ export const Wrapp = ({ id, children, babies = [],
             records={records}
             deleteRecords={deleteRecords}>
           </ActivityRecordsLog>}
-          <InfoAlert info={info}></InfoAlert>
         </div>
       </div>
     </Panel>

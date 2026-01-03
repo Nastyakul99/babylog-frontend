@@ -7,6 +7,11 @@ import { GENDER } from "../../api/types/types";
 import { FormItem, Input, Select, DateInput, Button } from "@vkontakte/vkui";
 import { parseToIntOrNull } from "../../utils/parseToIntOrNull";
 import { getBabyPhoto } from "../CellBabyAvatar";
+import { isNonEmptyString } from "../../utils/isNonEmptyString";
+import { ErrorContext } from "../../App";
+import { useContext } from "react";
+import { Info } from "../../panels/wrapp/InfoAlert/Info";
+import { ALERT_TYPES } from "../../panels/wrapp/InfoAlert/AlertTypes";
 
 export const EditBabyModal = ({ onClose = () => { },
     add = async () => { },
@@ -17,6 +22,7 @@ export const EditBabyModal = ({ onClose = () => { },
     const paramId = metaParams || params || {};
     const id = parseToIntOrNull(paramId.id);
     const [baby, setBaby] = useState();
+    const { addError } = useContext(ErrorContext);
 
     const getBaby = async () => {
         if (id == null || id == "null") {
@@ -52,6 +58,10 @@ export const EditBabyModal = ({ onClose = () => { },
     };
 
     const save = async () => {
+        if (!isValid(baby)) {
+            addError(new Info(0, "форма не верно заполнена", ALERT_TYPES.ERROR));
+            return;
+        };
         try {
             if (id == null) {
                 await add(baby);
@@ -61,6 +71,10 @@ export const EditBabyModal = ({ onClose = () => { },
         } finally {
             onClose();
         }
+    }
+
+    const isValid = (baby) => {
+        return isNonEmptyString(baby.name)
     }
 
     return <>

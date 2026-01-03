@@ -7,6 +7,7 @@ import {
 import { MODALS } from '../../routes';
 import { EditBabyModal } from './EditBabyModal';
 import { EditRecordModal } from './EditRecordModal/EditRecordModal';
+import { InfoAlerts } from '../../panels/wrapp/InfoAlert/InfoAlerts';
 
 const AppModalRoot = ({ person, addBaby = async () => { },
   getBaby = async () => { },
@@ -25,6 +26,7 @@ const AppModalRoot = ({ person, addBaby = async () => { },
 
   return (
     person.vkId && <ModalRoot activeModal={activeModal} onClose={onClose}>
+      <InfoAlerts></InfoAlerts>
       <ModalPage settlingHeight={99} id={MODALS.EDIT_BABY_MODAL} onClose={onClose}>
         <EditBabyModal onClose={onClose}
           add={addBaby} get={getBaby} update={updateBaby}>
