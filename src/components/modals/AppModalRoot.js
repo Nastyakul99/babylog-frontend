@@ -15,7 +15,8 @@ const AppModalRoot = ({ person, addBaby = async () => { },
   getRecord = async () => { },
   updateRecord = async () => { },
   getActivityById = () => { },
-  refreshRecord = () => { } }) => {
+  refreshRecord = () => { },
+  records = [] }) => {
   const { modal: activeModal } = useActiveVkuiLocation();
   const routeNavigator = useRouteNavigator();
   const [searchParams] = useSearchParams();
@@ -38,7 +39,8 @@ const AppModalRoot = ({ person, addBaby = async () => { },
           get={getRecord}
           update={updateRecord}
           getActivityById={getActivityById}
-          refreshRecord={refreshRecord}>
+          refreshRecord={refreshRecord}
+          records={records}>
         </EditRecordModal>
       </ModalPage>
     </ModalRoot>

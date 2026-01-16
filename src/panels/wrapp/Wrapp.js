@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { SettingsButton } from '../settings/SettingsButton';
 import { ChartButton } from '../../components/ChartButton';
 import { BackButton } from './BackButton';
+import { HomeButton } from './HomeButton';
 import { DEFAULT_VIEW_PANELS } from '../../routes';
 import { BabyDropdown } from '../../components/BabyDropdown';
 import { ActivityRecordsLog } from '../../components/ActivityRecordsLog/ActivityRecordsLog';
@@ -29,7 +30,7 @@ export const Wrapp = ({ id, children, babies = [],
 
   const before = ifHome() ? <BabyDropdown babies={babies}
     selectedBabyId={selectedBaby?.id || null} onChangeBaby={onChangeBaby}>
-  </BabyDropdown> : <BackButton></BackButton>;
+  </BabyDropdown> : <><HomeButton></HomeButton><BackButton></BackButton></>;
 
   return (
     <Panel id={id}>

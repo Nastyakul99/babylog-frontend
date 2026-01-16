@@ -92,7 +92,8 @@ export const App = () => {
             getRecord={getRecord}
             updateRecord={updateRecord}
             getActivityById={getActivityById}
-            refreshRecord={refreshRecord} />
+            refreshRecord={refreshRecord}
+            records={records}/>
           {babies && <View activePanel={activePanel}>
             <Home
               id="home"

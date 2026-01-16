@@ -113,7 +113,8 @@ export const EditBabyModal = ({ onClose = () => { },
                             id="birthDate"
                             aria-label="День рождения"
                             value={new Date(baby.birthDate)}
-                            onChange={handleBirthDateChange} />
+                            onChange={handleBirthDateChange}
+                            disableFuture/>
                     </FormItem>
                     <FormItem>
                         <Button className="AppButton" type="submit" size="l" stretched>

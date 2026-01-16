@@ -1,4 +1,4 @@
-export function filterRecordByTimeRange(record, rangeStart, rangeEnd) {
+export function filterRecordByTimeRange(record, rangeStart, rangeEnd, strict = false) {
   const start = new Date(rangeStart);
   const end = new Date(rangeEnd);
 
@@ -6,6 +6,9 @@ export function filterRecordByTimeRange(record, rangeStart, rangeEnd) {
     const recordStart = new Date(record.startTime);
     const recordEnd = new Date(record.endTime);
 
+    if(strict) {
+      return recordStart < end && recordEnd > start;
+    }
     return recordStart <= end && recordEnd >= start;
   }
   return false;
