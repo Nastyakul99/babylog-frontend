@@ -54,7 +54,9 @@ export const Charts = ({
     Object.keys(charts).forEach(charts_key => {
         Object.keys(charts[charts_key]).forEach(key => {
             if (charts[charts_key][key].length > 0) {
-                printCharts.push(<ChartFactory type={charts_key}
+                printCharts.push(<ChartFactory 
+                    key={`${charts_key}-${key}`}
+                    type={charts_key}
                     activities={charts[charts_key][key]}
                     records={records}
                     text={key}

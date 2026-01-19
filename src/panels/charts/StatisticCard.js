@@ -53,6 +53,7 @@ export const StatisticCard = ({ data = {}, dates = [], records = [] }) => {
             if (data[charts_key][key].length > 0) {
                 print.push(
                     <StatisticFactory
+                        key={`${charts_key}-${key}`}
                         type={charts_key}
                         records={records.filter((r) => data[charts_key][key]
                             .some(u => u.id === r.activityId))}
