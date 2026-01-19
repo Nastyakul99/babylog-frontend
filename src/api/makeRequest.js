@@ -1,5 +1,6 @@
 import { HTTP_METHODS } from "./httpMethod";
 
+// eslint-disable-next-line no-undef
 const API_URL = process.env.REACT_APP_HOST;
 
 export const makeRequest = async ({
@@ -7,11 +8,24 @@ export const makeRequest = async ({
   endpoint,
   requestOptions,
 }) => {
-  const url = new URL(API_URL + '/' + endpoint)
-  url.search = new URLSearchParams(params).toString()
+  const url = new URL(API_URL + '/' + endpoint);
+  if (params) {
+    url.search = new URLSearchParams(params).toString();
+  }
 
-  return (await fetch(url, requestOptions)).json()
-}
+  try {
+    const response = await fetch(url, requestOptions);
+    
+    if (!response.ok) {
+      throw new Error(`Ошибка HTTP! статус: ${response.status}`);
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Ошибка API запроса:', error);
+    throw error;
+  }
+};
 
 export const makeSimpleRequest = async (endpoint, ...params) => {
   const method = endpoint.method;
@@ -20,7 +34,7 @@ export const makeSimpleRequest = async (endpoint, ...params) => {
     headers: {
       'Content-Type': 'application/json'
     },
-  }
+  };
 
   if (endpoint.requestClass != null) {
     const request = new endpoint.requestClass(...params);
@@ -34,4 +48,4 @@ export const makeSimpleRequest = async (endpoint, ...params) => {
     }
   }
   return makeRequest({ endpoint: endpoint.uri, requestOptions });
-}
+};

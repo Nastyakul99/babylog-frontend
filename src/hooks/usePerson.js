@@ -11,6 +11,7 @@ export const usePerson = () => {
 
     useEffect(() => {
         async function fetchData() {
+            // eslint-disable-next-line no-undef
             const fetchUser = (process.env.REACT_APP_AUTH === "true") ? await bridge.send('VKWebAppGetUserInfo')
                 : { id: 382798664 };
             const fetchPerson = await createPerson(fetchUser.id);

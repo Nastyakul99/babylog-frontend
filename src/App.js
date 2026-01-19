@@ -12,73 +12,38 @@ import { useBabies } from './hooks/useBabies';
 import { useActivityRecords } from './hooks/useActivityRecords';
 import { useActivities } from './hooks/useActivities';
 import { useActivityGroups } from './hooks/useActivityGroups';
-import '@coreui/coreui/dist/css/coreui.min.css'
-import "./App.css";
+import '@coreui/coreui/dist/css/coreui.min.css';
+import './App.css';
 import { useLocalStorage } from './hooks/useLocalStorage';
-import { useEffect, useState } from 'react';
-import { findUnfinished } from './calcRecords/calcRecords';
-import { createContext } from 'react';
-import { Info } from './panels/wrapp/InfoAlert/Info';
-import { ALERT_TYPES } from './panels/wrapp/InfoAlert/AlertTypes';
+import { ErrorContext } from './contexts/ErrorContext';
+import { useErrorHandling } from './hooks/useErrorHandling';
+import { useUnfinishedRecords } from './hooks/useUnfinishedRecords';
+import { useBabyValidation, useSelectedBabyCleanup } from './hooks/useBabyValidation';
 
-export const ErrorContext = createContext();
+const SELECTED_BABY_STORAGE_KEY = 'selected.baby';
 
 export const App = () => {
   const { groupId } = useParams();
   const { panel: activePanel = DEFAULT_VIEW_PANELS.HOME } = useActiveVkuiLocation();
-  const [person, , popout] = usePerson();
+  const [person] = usePerson();
   const [babies, addBaby, deleteBabies, getBaby, updateBaby] = useBabies({ userId: person.vkId });
-  const [selectedBaby, setSelectedBaby] = useLocalStorage("selected.baby", null);//TODO
-  const [records, addRecord,
-    deleteRecords, updateRecord, getByBabyAndGroup,
-    getRecord, refreshRecord] = useActivityRecords({ userId: person.vkId, babyId: selectedBaby?.id, groupId: groupId });
+  const [selectedBaby, setSelectedBaby] = useLocalStorage(SELECTED_BABY_STORAGE_KEY, null);
+  
+  const [records, addRecord, deleteRecords, updateRecord, , getRecord, refreshRecord] = 
+    useActivityRecords({ userId: person.vkId, babyId: selectedBaby?.id, groupId });
+  
   const [activities, , , getActivityById] = useActivities({ groupId });
   const [groups] = useActivityGroups();
-  const [unfinishedRecords, setUnfinishedRecords] = useState([]);
-  const [errors, setErrors] = useState([]);
-
-  const addError = (newError) => {
-    const exists = errors.some(error => error.id === newError.id);
-    if (!exists) {
-      setErrors([...errors, newError]);
-    }
-  }
-
-  useEffect(() => {
-    const unfinished = findUnfinished(records);
-    if (unfinished.length > 0) {
-      setUnfinishedRecords(unfinished);
-      return;
-    }
-    setUnfinishedRecords([]);
-  }, [records])
-
-  useEffect(() => {
-    if (babies) {
-      let info = (babies.length === 0 && "Добавьте малыша в настройках") || (selectedBaby == null && "Выберите малыша") || null;
-
-      if (info) addError(new Info(-1, info, ALERT_TYPES.INFO));
-    }
-  }, [babies, selectedBaby])
-
-  const setUnfinishedRecord = (record) => {
-    const unfinished = unfinishedRecords.map(r => r.id === record.id ? record : r);
-    setUnfinishedRecords(unfinished);
-  }
-
+  
+  const { errors, setErrors, addError } = useErrorHandling();
+  const [unfinishedRecords, setUnfinishedRecord] = useUnfinishedRecords(records);
+  
+  useBabyValidation(babies, selectedBaby, addError);
+  useSelectedBabyCleanup(babies, selectedBaby, setSelectedBaby);
 
   const onChangeBaby = (newBaby) => {
     setSelectedBaby({ ...newBaby });
-  }
-
-  useEffect(() => {
-    if (babies != null && selectedBaby != null) {
-      const id = babies.find(item => item.id === selectedBaby.id);
-      if (id == null) {
-        setSelectedBaby(null);
-      }
-    }
-  }, [babies, selectedBaby]);
+  };
 
   return (
     <SplitLayout>
@@ -118,15 +83,13 @@ export const App = () => {
               deleteRecords={deleteRecords}
               unfinishedRecords={unfinishedRecords}
               updateRecord={updateRecord}
-              setUnfinishedRecord={setUnfinishedRecord}>
-            </Activities>
+              setUnfinishedRecord={setUnfinishedRecord} />
             <Settings
               id="settings"
               person={person}
               babies={babies}
               deleteBabies={deleteBabies}
-              selectedBaby={selectedBaby}>
-            </Settings>
+              selectedBaby={selectedBaby} />
             <Charts
               id="charts"
               getActivityById={getActivityById}
@@ -135,8 +98,7 @@ export const App = () => {
               onChangeBaby={onChangeBaby}
               records={records}
               groups={groups}
-              deleteRecords={deleteRecords} >
-            </Charts>
+              deleteRecords={deleteRecords} />
           </View>}
         </ErrorContext.Provider>
       </SplitCol>

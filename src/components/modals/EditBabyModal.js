@@ -8,7 +8,7 @@ import { FormItem, Input, Select, DateInput, Button } from "@vkontakte/vkui";
 import { parseToIntOrNull } from "../../utils/parseToIntOrNull";
 import { getBabyPhoto } from "../CellBabyAvatar";
 import { isNonEmptyString } from "../../utils/isNonEmptyString";
-import { ErrorContext } from "../../App";
+import { ErrorContext } from "../../contexts/ErrorContext";
 import { useContext } from "react";
 import { Info } from "../../panels/wrapp/InfoAlert/Info";
 import { ALERT_TYPES } from "../../panels/wrapp/InfoAlert/AlertTypes";

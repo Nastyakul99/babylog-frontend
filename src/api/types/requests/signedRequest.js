@@ -17,6 +17,7 @@ export class SignedRequest {
     async _toSign() {
         try {
             let data;
+            // eslint-disable-next-line no-undef
             if (process.env.REACT_APP_AUTH === "true") {
                 data = await bridge.send('VKWebAppCreateHash', {
                     payload: this._genPayload()

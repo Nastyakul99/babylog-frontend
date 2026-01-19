@@ -7,7 +7,7 @@ import { parseToIntOrNull } from "../../../utils/parseToIntOrNull";
 import { Image } from "@vkontakte/vkui";
 import { FormEditRecordFactory } from "./FormEditRecordFactory";
 import { useContext } from "react";
-import { ErrorContext } from "../../../App";
+import { ErrorContext } from "../../../contexts/ErrorContext";
 import { Info } from "../../../panels/wrapp/InfoAlert/Info";
 import { ALERT_TYPES } from "../../../panels/wrapp/InfoAlert/AlertTypes";
 import { filterRecordByTimeRange } from "../../../calcRecords/calcRecords";
@@ -27,19 +27,17 @@ export const EditRecordModal = ({ onClose = () => { },
 
     const activity = record ? getActivityById(record.activityId) : null;
 
-    const getRecord = async () => {
-        if (id == null || id == "null") {
-            return null;
-        }
-        return await get(id);
-    }
-
     useEffect(() => {
-        async function fetchData() {
-            setRecord(await getRecord(id));
-        };
-        fetchData();
-    }, [id]);
+        async function fetchRecordData() {
+            if (id == null || id === "null") {
+                setRecord(null);
+                return;
+            }
+            const fetchedRecord = await get(id);
+            setRecord(fetchedRecord);
+        }
+        fetchRecordData();
+    }, [id, get]);
 
     const handleStartTimeChange = (value) => {
         const date = value.toISOString();

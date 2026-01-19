@@ -2,7 +2,7 @@ import "../Wrapp.css"
 import { InfoAlert } from "./InfoAlert";
 import { Alert } from "@vkontakte/vkui";
 import { useState, useEffect, useContext } from "react";
-import { ErrorContext } from "../../../App";
+import { ErrorContext } from "../../../contexts/ErrorContext";
 
 export const InfoAlerts = () => {
     const { errors, setErrors } = useContext(ErrorContext);

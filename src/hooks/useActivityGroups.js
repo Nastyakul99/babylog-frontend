@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ScreenSpinner } from "@vkontakte/vkui";
 import { getActivityGroups } from "../api/activityGroups";
 import { ActivityGroup } from "../api/types/types";
@@ -8,15 +7,22 @@ export const useActivityGroups = () => {
     const [activityGroups, setActivityGroups] = useState([]);
     const [popout, setPopout] = useState(<ScreenSpinner />);
 
-    useEffect(() => {
-        async function fetchData() {
-            const fetchData = await getActivityGroups();
-            const newData = fetchData?.map(g => new ActivityGroup({ ...g }));
-            setActivityGroups(newData ? newData : []);
+    const fetchData = useCallback(async () => {
+        try {
+            const fetchedGroups = await getActivityGroups();
+            const newData = fetchedGroups?.map(g => new ActivityGroup({ ...g })) || [];
+            setActivityGroups(newData);
             setPopout(null);
+        } catch (error) {
+            console.error('Не удалось загрузить группы активности:', error);
+            setPopout(null);
+            setActivityGroups([]);
         }
-        fetchData();
     }, []);
 
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
+
     return [activityGroups, setActivityGroups, popout];
-}
+};
