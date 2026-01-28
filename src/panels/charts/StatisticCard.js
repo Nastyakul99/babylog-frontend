@@ -46,7 +46,7 @@ const StatisticFactory = ({ type, dates, records, text }) => {
 
 
 export const StatisticCard = ({ data = {}, dates = [], records = [] }) => {
-
+    if (dates.length === 0) return null;
     let print = [];
     Object.keys(data).forEach(charts_key => {
         Object.keys(data[charts_key]).forEach(key => {

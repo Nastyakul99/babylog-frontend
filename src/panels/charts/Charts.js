@@ -48,7 +48,7 @@ export const Charts = ({
         }
     }
 
-    const dates = getDatesArray(...date).map(d => formatDate(d));
+    const dates = getDatesArray(...date || []).map(d => formatDate(d));
 
     let printCharts = [];
     Object.keys(charts).forEach(charts_key => {
