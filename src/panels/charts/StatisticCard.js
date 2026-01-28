@@ -4,6 +4,7 @@ import { getDayStartEnd } from "../../utils/dateUtils"
 import { sumTimeInRange, sumValInRange } from "../../calcRecords/calcRecords"
 import { countRecordsInTimeRange } from "../../calcRecords/calcRecords"
 import { getAverage } from "../../utils/getAverage"
+import { roundTo } from "../../utils/roundTo"
 
 const StatisticFactory = ({ type, dates, records, text }) => {
     const calcValue = (calc) => {
@@ -40,7 +41,7 @@ const StatisticFactory = ({ type, dates, records, text }) => {
             value = null;
             break;
     }
-    return value != null ? <Text>{text} : {value} {uom}</Text> : <></>;
+    return value != null ? <Text>{text} : {roundTo(value, 2)} {uom}</Text> : <></>;
 }
 
 
