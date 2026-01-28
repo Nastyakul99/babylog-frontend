@@ -15,12 +15,13 @@ export const makeRequest = async ({
 
   try {
     const response = await fetch(url, requestOptions);
-    
+
     if (!response.ok) {
       throw new Error(`Ошибка HTTP! статус: ${response.status}`);
     }
-    
-    return await response.json();
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) return await response.json();
+    return null;
   } catch (error) {
     console.error('Ошибка API запроса:', error);
     throw error;
