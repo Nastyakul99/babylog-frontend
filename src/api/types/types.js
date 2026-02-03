@@ -61,17 +61,18 @@ export const TYPE_ACTIVITY_RECORD = Object.freeze({
 });
 
 export class ActivityRecord {
-    constructor({ id = -1, babyId = 0, activityId = 0, startTime = "" } = {}) {
+    constructor({ id = -1, babyId = 0, activityId = 0, startTime = null, authorId = 0 } = {}) {
         this.id = id;
         this.babyId = babyId;
         this.activityId = activityId;
         this.startTime = startTime;
         this.type = TYPE_ACTIVITY_RECORD.BASE_RECORD;
+        this.authorId = authorId;
     }
 }
 
 export class TimeRangeRecord extends ActivityRecord {
-    constructor({ id = -1, babyId = 0, activityId = 0, startTime = "", endTime = "" } = {}) {
+    constructor({ id = -1, babyId = 0, activityId = 0, startTime = null, endTime = null } = {}) {
         super({ id, babyId, activityId, startTime });
         this.endTime = endTime;
         this.type = TYPE_ACTIVITY_RECORD.TIME_RANGE;
@@ -79,7 +80,7 @@ export class TimeRangeRecord extends ActivityRecord {
 }
 
 export class TextNoteRecord extends TimeRangeRecord {
-    constructor({ id = -1, babyId = 0, activityId = 0, startTime = "", comment = "", endTime = "" } = {}) {
+    constructor({ id = -1, babyId = 0, activityId = 0, startTime = null, comment = "", endTime = null } = {}) {
         super({ id, babyId, activityId, startTime, endTime });
         this.comment = comment;
         this.type = TYPE_ACTIVITY_RECORD.TEXT_NOTE;
@@ -87,7 +88,7 @@ export class TextNoteRecord extends TimeRangeRecord {
 }
 
 export class IntegerAndTimeRange extends ActivityRecord {
-    constructor({ id = -1, babyId = 0, activityId = 0, startTime = "", endTime = "", val = 0, type } = {}) {
+    constructor({ id = -1, babyId = 0, activityId = 0, startTime = null, endTime = null, val = 0, type } = {}) {
         super({ id, babyId, activityId, startTime });
         this.endTime = endTime;
         this.val = val;

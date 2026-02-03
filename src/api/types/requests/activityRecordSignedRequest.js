@@ -13,6 +13,8 @@ export class ActivityRecordSignedRequest extends SignedRequest {
     _genPayload() {
         let tmp = {...this.activityRecord};
         delete  tmp.type;
-        return keysToURI(tmp);
+        const strKeys = keysToURI(tmp);
+        console.log(strKeys);
+        return strKeys;
     }
 }
